@@ -1,0 +1,2710 @@
+================================================================================
+G code overview 3.1
+================================================================================
+
+#3 = 15 (set parameter 3 to 15)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (assignment
+      (numbered_parameter)
+      (literal))
+    (comment)))
+
+================================================================================
+G code overview 3.3
+================================================================================
+
+#<_endmill_dia> = 0.049
+#<_endmill_rad> = [#<_endmill_dia>/2.0]
+o100 call [0.0] [0.0] [#<_inside_cutout>-#<_endmill_dia>] [#<_Zcut>] [#<_feedrate>]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (assignment
+      (named_global_parameter)
+      (literal)))
+  (line
+    (assignment
+      (named_global_parameter)
+      (expression
+        (binary_expr
+          left: (named_global_parameter)
+          operator: (div)
+          right: (literal)))))
+  (line
+    (call
+      (o_number)
+      (expression
+        (literal))
+      (expression
+        (literal))
+      (expression
+        (binary_expr
+          left: (named_global_parameter)
+          operator: (sub)
+          right: (named_global_parameter)))
+      (expression
+        (named_global_parameter))
+      (expression
+        (named_global_parameter)))))
+
+================================================================================
+G code overview 4 ex 1
+================================================================================
+
+o100 if [EXISTS[#<_ini[setup]xpos>]]
+  (debug, [setup]xpos exists: #<_ini[setup]xpos>)
+  x1
+o100 else
+  (debug, [setup]xpos does not exist)
+o100 endif
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (if
+      (o_number)
+      condition: (expression
+        (func_call_expr
+          (expression
+            (named_global_parameter))))
+      (body
+        (line
+          (debug
+            (named_global_parameter)))
+        (line
+          (x
+            (literal))))
+      (else
+        (o_number)
+        (body
+          (line
+            (debug))))
+      (endif
+        (o_number)))))
+
+================================================================================
+G code overview 4 ex 2
+================================================================================
+
+(debug, #<_hal[motion-controller.time]>)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (debug
+      (named_global_parameter))))
+
+================================================================================
+G code overview 4 ex 3
+================================================================================
+
+o100 if [EXISTS[#<_hal[motion-controller.time]>]]
+  (debug, [motion-controller.time] exists: #<_hal[motion-controller.time]>)
+o100 else
+  (debug, [motion-controller.time] does not exist)
+o100 endif
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (if
+      (o_number)
+      condition: (expression
+        (func_call_expr
+          (expression
+            (named_global_parameter))))
+      (body
+        (line
+          (debug
+            (named_global_parameter))))
+      (else
+        (o_number)
+        (body
+          (line
+            (debug))))
+      (endif
+        (o_number)))))
+
+================================================================================
+G code overview 8 ex 1
+================================================================================
+
+o<test> sub
+o10 if [EXISTS[#<_global>]]
+    (debug, _global exists and has the value #<_global>)
+o10 else
+    (debug, _global does not exist)
+o10 endif
+o<test> endsub
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (sub
+      (o_name)
+      (body
+        (line
+          (if
+            (o_number)
+            condition: (expression
+              (func_call_expr
+                (expression
+                  (named_global_parameter))))
+            (body
+              (line
+                (debug
+                  (named_global_parameter))))
+            (else
+              (o_number)
+              (body
+                (line
+                  (debug))))
+            (endif
+              (o_number)))))
+      (endsub
+        (o_name)))))
+
+================================================================================
+G code overview 8 ex 2
+================================================================================
+
+o<test> call
+#<_global> = 4711
+o<test> call
+m2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (call
+      (o_name)))
+  (line
+    (assignment
+      (named_global_parameter)
+      (literal)))
+  (line
+    (call
+      (o_name)))
+  (line
+    (m)))
+
+================================================================================
+G code overview 12 ex 1
+================================================================================
+
+F100 G1 @.5 ^90
+G91 @.5 ^90
+@.5 ^90
+@.5 ^90
+@.5 ^90
+G90 G0 X0 Y0 M2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (f
+      (literal))
+    (g)
+    (polar_distance
+      (literal))
+    (polar_angle
+      (literal)))
+  (line
+    (g)
+    (polar_distance
+      (literal))
+    (polar_angle
+      (literal)))
+  (line
+    (polar_distance
+      (literal))
+    (polar_angle
+      (literal)))
+  (line
+    (polar_distance
+      (literal))
+    (polar_angle
+      (literal)))
+  (line
+    (polar_distance
+      (literal))
+    (polar_angle
+      (literal)))
+  (line
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (m)))
+
+================================================================================
+G code overview 12 ex 1
+================================================================================
+
+F100 G1 @.5 ^90
+G91 ^90
+^90
+^90
+^90
+G90 G0 X0 Y0 M2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (f
+      (literal))
+    (g)
+    (polar_distance
+      (literal))
+    (polar_angle
+      (literal)))
+  (line
+    (g)
+    (polar_angle
+      (literal)))
+  (line
+    (polar_angle
+      (literal)))
+  (line
+    (polar_angle
+      (literal)))
+  (line
+    (polar_angle
+      (literal)))
+  (line
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (m)))
+
+================================================================================
+G code overview 14
+================================================================================
+
+G0 (Rapid to start) X1 Y1
+G0 X1 Y1 (Rapid to start; but don't forget the coolant)
+M2 ; End of program.
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (comment)
+    (x
+      (literal))
+    (y
+      (literal)))
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (comment))
+  (line
+    (m)
+    (comment)))
+
+================================================================================
+G code overview 15
+================================================================================
+
+(MSG, This is a message)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (msg)))
+
+================================================================================
+G code overview 20
+================================================================================
+
+(print,endmill dia = #<_endmill_dia>)
+(print,value of variable 123 is: #123)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (print
+      (named_global_parameter)))
+  (line
+    (print
+      (numbered_parameter))))
+
+================================================================================
+G code overview 24
+================================================================================
+
+G17 G20 G40 G49 G54 G80 G90 G94
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (g)
+    (g)
+    (g)
+    (g)
+    (g)
+    (g)
+    (g)))
+
+================================================================================
+G codes 3
+================================================================================
+
+G90 (set absolute distance mode)
+G0 X1 Y-2.3 (Rapid linear move from current location to X1 Y-2.3)
+M2 (end program)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (comment))
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (comment))
+  (line
+    (m)
+    (comment)))
+
+================================================================================
+G codes 4
+================================================================================
+
+G90 (set absolute distance mode)
+G1 X1.2 Y-3 F10 (linear move at a feed rate of 10 from current position to X1.2 Y-3)
+Z-2.3 (linear move at same feed rate from current position to Z-2.3)
+Z1 F25 (linear move at a feed rate of 25 from current position to Z1)
+M2 (end program)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (comment))
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (f
+      (literal))
+    (comment))
+  (line
+    (z
+      (literal))
+    (comment))
+  (line
+    (z
+      (literal))
+    (f
+      (literal))
+    (comment))
+  (line
+    (m)
+    (comment)))
+
+================================================================================
+G codes 5.2-5.3 ex 1
+================================================================================
+
+G0 X0 Y0
+G2 X1 Y1 I1 F10 (clockwise arc in the XY plane)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal)))
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (i
+      (literal))
+    (f
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 5.2-5.3 ex 2
+================================================================================
+
+G0 X0 Y0
+G2 X0 Y1 I1 J0.5 F25 (clockwise arc in the XY plane)
+G3 X0 Y0 I1 J-0.5 F25 (counterclockwise arc in the XY plane)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal)))
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (i
+      (literal))
+    (j
+      (literal))
+    (f
+      (literal))
+    (comment))
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (i
+      (literal))
+    (j
+      (literal))
+    (f
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 5.2-5.3 ex 3
+================================================================================
+
+G0 X0 Y0 Z0
+G17 G2 X10 Y16 I3 J4 Z-1 (helix arc with Z added)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal)))
+  (line
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (i
+      (literal))
+    (j
+      (literal))
+    (z
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 5.2-5.3 ex 4
+================================================================================
+
+G0 X0 Y0 Z0
+G2 X0 Y1 Z-1 I1 J0.5 P2 F25
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal)))
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (i
+      (literal))
+    (j
+      (literal))
+    (p
+      (literal))
+    (f
+      (literal))))
+
+================================================================================
+G codes 5.2-5.3 ex 5
+================================================================================
+
+G17 G2 X10 Y15 R20 Z5 (radius format with arc)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (r
+      (literal))
+    (z
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 6
+================================================================================
+
+G4 P0.5 (wait for 0.5 seconds before proceeding)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (p
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 7 ex 1
+================================================================================
+
+G90 G17
+G0 X0 Y0
+G5 I0 J3 P0 Q-3 X1 Y1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (g))
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal)))
+  (line
+    (g)
+    (i
+      (literal))
+    (j
+      (literal))
+    (p
+      (literal))
+    (q
+      (literal))
+    (x
+      (literal))
+    (y
+      (literal))))
+
+================================================================================
+G codes 7 ex 2
+================================================================================
+
+G5 P0 Q-3 X2 Y2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (p
+      (literal))
+    (q
+      (literal))
+    (x
+      (literal))
+    (y
+      (literal))))
+
+================================================================================
+G codes 8
+================================================================================
+
+G90 G17
+G0 X-2 Y4
+G5.1 X2 I2 J-8
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (g))
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal)))
+  (line
+    (g)
+    (x
+      (literal))
+    (i
+      (literal))
+    (j
+      (literal))))
+
+================================================================================
+G codes 9
+================================================================================
+
+G0 X0 Y0 (rapid move)
+F10 (set feed rate)
+G5.2 P1 L3
+     X0 Y1 P1
+     X2 Y2 P1
+     X2 Y0 P1
+     X0 Y0 P2
+G5.3
+; The rapid moves show the same path without the NURBS Block
+G0 X0 Y1
+   X2 Y2
+   X2 Y0
+   X0 Y0
+M2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (comment))
+  (line
+    (f
+      (literal))
+    (comment))
+  (line
+    (g)
+    (p
+      (literal))
+    (l
+      (literal)))
+  (line
+    (x
+      (literal))
+    (y
+      (literal))
+    (p
+      (literal)))
+  (line
+    (x
+      (literal))
+    (y
+      (literal))
+    (p
+      (literal)))
+  (line
+    (x
+      (literal))
+    (y
+      (literal))
+    (p
+      (literal)))
+  (line
+    (x
+      (literal))
+    (y
+      (literal))
+    (p
+      (literal)))
+  (line
+    (g))
+  (line
+    (comment))
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal)))
+  (line
+    (x
+      (literal))
+    (y
+      (literal)))
+  (line
+    (x
+      (literal))
+    (y
+      (literal)))
+  (line
+    (x
+      (literal))
+    (y
+      (literal)))
+  (line
+    (m)))
+
+================================================================================
+G codes 12
+================================================================================
+
+G10 L1 P1 Z1.5 (set tool 1 Z offset from the machine origin to 1.5)
+G10 L1 P2 R0.015 Q3 (lathe example setting tool 2 radius to 0.015 and orientation to 3)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (l
+      (literal))
+    (p
+      (literal))
+    (z
+      (literal))
+    (comment))
+  (line
+    (g)
+    (l
+      (literal))
+    (p
+      (literal))
+    (r
+      (literal))
+    (q
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 13
+================================================================================
+
+G10 L2 P1 X3.5 Y17.2
+
+G10 L2 P1 X0 Y0 Z0 (clear offsets for X,Y & Z axes in coordinate system 1)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (l
+      (literal))
+    (p
+      (literal))
+    (x
+      (literal))
+    (y
+      (literal)))
+  (line
+    (g)
+    (l
+      (literal))
+    (p
+      (literal))
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 14
+================================================================================
+
+T1 M6 G43 (load tool 1 and tool length offsets)
+G10 L10 P1 Z1.5 (set the current position for Z to be 1.5)
+G43 (reload the tool length offsets from the changed tool table)
+M2 (end program)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (t
+      (literal))
+    (m)
+    (g)
+    (comment))
+  (line
+    (g)
+    (l
+      (literal))
+    (p
+      (literal))
+    (z
+      (literal))
+    (comment))
+  (line
+    (g)
+    (comment))
+  (line
+    (m)
+    (comment)))
+
+================================================================================
+G codes 16
+================================================================================
+
+G10 L20 P1 X1.5 (set the X axis current location in coordinate system 1 to 1.5)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (l
+      (literal))
+    (p
+      (literal))
+    (x
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 19
+================================================================================
+
+G28 Z2.5 (rapid to Z2.5 then to Z location specified in #5163)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (z
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 20
+================================================================================
+
+G30 Z2.5 (rapid to Z2.5 then to the Z location specified in #5183)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (z
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 21
+================================================================================
+
+G90 (absolute distance mode)
+G0 X1 Z0.1 (rapid to position)
+S100 M3 (start spindle turning)
+G33 Z-2 K0.125 (move Z axis to -2 at a rate to equal 0.125 per revolution)
+G0 X1.25 (rapid move tool away from work)
+Z0.1 (rapid move to starting Z position)
+M2 (end program)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (comment))
+  (line
+    (g)
+    (x
+      (literal))
+    (z
+      (literal))
+    (comment))
+  (line
+    (s
+      (literal))
+    (m)
+    (comment))
+  (line
+    (g)
+    (z
+      (literal))
+    (k
+      (literal))
+    (comment))
+  (line
+    (g)
+    (x
+      (literal))
+    (comment))
+  (line
+    (z
+      (literal))
+    (comment))
+  (line
+    (m)
+    (comment)))
+
+================================================================================
+G codes 22
+================================================================================
+
+G90 (set absolute mode)
+G0 X1.000 Y1.000 Z0.100 (rapid move to starting position)
+S100 M3 (turn on the spindle, 100 RPM)
+G33.1 Z-0.750 K0.05 (rigid tap a 20 TPI thread 0.750 deep)
+M2 (end program)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (comment))
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (comment))
+  (line
+    (s
+      (literal))
+    (m)
+    (comment))
+  (line
+    (g)
+    (z
+      (literal))
+    (k
+      (literal))
+    (comment))
+  (line
+    (m)
+    (comment)))
+
+================================================================================
+G codes 24
+================================================================================
+
+; current location is X1 after finishing cutter compensated move
+G40 (turn compensation off)
+G0 X1.6 (linear move longer than current cutter diameter)
+M2 (end program)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (comment))
+  (line
+    (g)
+    (comment))
+  (line
+    (g)
+    (x
+      (literal))
+    (comment))
+  (line
+    (m)
+    (comment)))
+
+================================================================================
+G codes 27
+================================================================================
+
+G43 H1 (set tool offsets using the values from tool 1 in the tool table)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (h
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 28
+================================================================================
+
+G90 (set absolute mode)
+T1 M6 G43 (load tool 1 and tool length offsets, Z is at machine 0 and DRO shows Z1.500)
+G43.1 Z0.250 (offset current tool offset by 0.250, DRO now shows Z1.250)
+M2 (end program)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (comment))
+  (line
+    (t
+      (literal))
+    (m)
+    (g)
+    (comment))
+  (line
+    (g)
+    (z
+      (literal))
+    (comment))
+  (line
+    (m)
+    (comment)))
+
+================================================================================
+G codes 29
+================================================================================
+
+G90 (set absolute mode)
+T1 M6 (load tool 1)
+G43 (or G43 H1 - replace all tool offsets with T1's offset)
+G43.2 H10 (also add in T10's tool offset)
+M2 (end program)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (comment))
+  (line
+    (t
+      (literal))
+    (m)
+    (comment))
+  (line
+    (g)
+    (comment))
+  (line
+    (g)
+    (h
+      (literal))
+    (comment))
+  (line
+    (m)
+    (comment)))
+
+================================================================================
+G codes 32
+================================================================================
+
+G53 G0 X0 Y0 Z0 (rapid linear move to the machine origin)
+G53 X2 (rapid linear move to absolute coordinate X2)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (comment))
+  (line
+    (g)
+    (x
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 36
+================================================================================
+
+G64 P0.015 (set path following to be within 0.015 of the actual path)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (p
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 39
+================================================================================
+
+G0 Z-0.5 X0.2
+G76 P0.05 Z-1 I-.075 J0.008 K0.045 Q29.5 L2 E0.045
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (z
+      (literal))
+    (x
+      (literal)))
+  (line
+    (g)
+    (p
+      (literal))
+    (z
+      (literal))
+    (i
+      (literal))
+    (j
+      (literal))
+    (k
+      (literal))
+    (q
+      (literal))
+    (l
+      (literal))
+    (e
+      (literal))))
+
+================================================================================
+G codes 40.7
+================================================================================
+
+N100 G90 G0 X0 Y0 Z0 (move coordinate home)
+N110 G1 F10 X0 G4 P0.1
+N120 G91 G81 X1 Y0 Z-1 R1 L4(canned drill cycle)
+N130 G90 G0 X0 Y1
+N140 Z0
+N150 G91 G81 X1 Y0 Z-0.5 R1 L4(canned drill cycle)
+N160 G80 (turn off canned cycle)
+N170 M2 (program end)
+
+N1000 G90 G0 X0 Y0 Z0 (move coordinate home)
+N1010 G1 F50 X0 G4 P0.1
+N1020 G91 G81 X1 Y0 Z-0.5 R1 L4 (canned drill cycle)
+N1030 X0 Y1 R0 L3 (repeat)
+N1040 X-1 Y0 L3 (repeat)
+N1050 X0 Y-1 L2 (repeat)
+N1060 G80 (turn off canned cycle)
+N1070 G90 G0 X0 (rapid move home)
+N1080 Y0
+N1090 Z0
+N1100 M2 (program end)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (block_number)
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (g)
+    (f
+      (literal))
+    (x
+      (literal))
+    (g)
+    (p
+      (literal)))
+  (line
+    (block_number)
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (r
+      (literal))
+    (l
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal)))
+  (line
+    (block_number)
+    (z
+      (literal)))
+  (line
+    (block_number)
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (r
+      (literal))
+    (l
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (g)
+    (comment))
+  (line
+    (block_number)
+    (m)
+    (comment))
+  (line
+    (block_number)
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (g)
+    (f
+      (literal))
+    (x
+      (literal))
+    (g)
+    (p
+      (literal)))
+  (line
+    (block_number)
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (r
+      (literal))
+    (l
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (x
+      (literal))
+    (y
+      (literal))
+    (r
+      (literal))
+    (l
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (x
+      (literal))
+    (y
+      (literal))
+    (l
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (x
+      (literal))
+    (y
+      (literal))
+    (l
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (g)
+    (comment))
+  (line
+    (block_number)
+    (g)
+    (g)
+    (x
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (y
+      (literal)))
+  (line
+    (block_number)
+    (z
+      (literal)))
+  (line
+    (block_number)
+    (m)
+    (comment)))
+
+================================================================================
+G codes 41
+================================================================================
+
+G90 G81 X1 Y1 Z1.5 R2.8 (absolute distance canned cycle)
+G80 (turn off canned cycle motion)
+G0 X0 Y0 Z0 (rapid move to coordinate home)
+
+G90 G81 X1 Y1 Z1.5 R2.8 (absolute distance canned cycle)
+G0 X0 Y0 Z0 (rapid move to coordinate home)
+
+N100 G90 G0 X0 Y0 Z0 (coordinate home)
+N110 G1 X0 G4 P0.1
+N120 G81 X1 Y0 Z0 R1 (canned drill cycle)
+N130 X2
+N140 X3
+N150 X4
+N160 Y1 Z0.5
+N170 X3
+N180 X2
+N190 X1
+N200 G80 (turn off canned cycle)
+N210 G0 X0 (rapid move home)
+N220 Y0
+N230 Z0
+N240 M2 (program end)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (r
+      (literal))
+    (comment))
+  (line
+    (g)
+    (comment))
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (comment))
+  (line
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (r
+      (literal))
+    (comment))
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (g)
+    (x
+      (literal))
+    (g)
+    (p
+      (literal)))
+  (line
+    (block_number)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (r
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (x
+      (literal)))
+  (line
+    (block_number)
+    (x
+      (literal)))
+  (line
+    (block_number)
+    (x
+      (literal)))
+  (line
+    (block_number)
+    (y
+      (literal))
+    (z
+      (literal)))
+  (line
+    (block_number)
+    (x
+      (literal)))
+  (line
+    (block_number)
+    (x
+      (literal)))
+  (line
+    (block_number)
+    (x
+      (literal)))
+  (line
+    (block_number)
+    (g)
+    (comment))
+  (line
+    (block_number)
+    (g)
+    (x
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (y
+      (literal)))
+  (line
+    (block_number)
+    (z
+      (literal)))
+  (line
+    (block_number)
+    (m)
+    (comment)))
+
+================================================================================
+G codes 42
+================================================================================
+
+G90 G98 G81 X4 Y5 Z1.5 R2.8
+
+G91 G98 G81 X4 Y5 Z-0.6 R1.8 L3
+
+G90 G98 G81 X4 Y5 Z1.5 R2.8
+
+G91 G98 G81 X4 Y5 Z-0.6 R1.8 L3
+
+G90 G98 G81 X4 Y5 Z-0.6 R1.8
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (r
+      (literal)))
+  (line
+    (g)
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (r
+      (literal))
+    (l
+      (literal)))
+  (line
+    (g)
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (r
+      (literal)))
+  (line
+    (g)
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (r
+      (literal))
+    (l
+      (literal)))
+  (line
+    (g)
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (r
+      (literal))))
+
+================================================================================
+G codes 51
+================================================================================
+
+G90 (set absolute distance mode)
+G0 X2.5 (rapid move to coordinate X2.5 including any offsets in effect)
+
+G91 (set incremental distance mode)
+G0 X2.5 (rapid move 2.5 from current position along the X axis)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (comment))
+  (line
+    (g)
+    (x
+      (literal))
+    (comment))
+  (line
+    (g)
+    (comment))
+  (line
+    (g)
+    (x
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 57
+================================================================================
+
+G96 D2500 S250 (set CSS with a max rpm of 2500 and a surface speed of 250)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (d
+      (literal))
+    (s
+      (literal))
+    (comment)))
+
+================================================================================
+G codes 58
+================================================================================
+
+G0 X1 Y2 Z3
+G90 G98 G81 X4 Y5 Z-0.6 R1.8 F10
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal)))
+  (line
+    (g)
+    (g)
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (r
+      (literal))
+    (f
+      (literal))))
+
+================================================================================
+M codes 5
+================================================================================
+
+S100 $0
+S200 $1
+S300 $2
+M3 $-1
+
+M4 $1
+
+M5 $2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (s
+      (literal))
+    (spindle
+      (literal)))
+  (line
+    (s
+      (literal))
+    (spindle
+      (literal)))
+  (line
+    (s
+      (literal))
+    (spindle
+      (literal)))
+  (line
+    (m)
+    (spindle
+      (literal)))
+  (line
+    (m)
+    (spindle
+      (literal)))
+  (line
+    (m)
+    (spindle
+      (literal))))
+
+================================================================================
+M codes 16
+================================================================================
+
+M66 P0 L3 Q5 (wait up to 5 seconds for digital input 0 to turn on)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (m)
+    (p
+      (literal))
+    (l
+      (literal))
+    (q
+      (literal))
+    (comment)))
+
+================================================================================
+M codes 21
+================================================================================
+
+O<showstate> sub
+(DEBUG, imperial=#<_imperial> absolute=#<_absolute> feed=#<_feed> rpm=#<_rpm>)
+O<showstate> endsub
+
+O<imperialsub> sub
+g20 (imperial)
+g91 (relative mode)
+F5 (low feed)
+S300 (low rpm)
+(debug, in subroutine, state now:)
+o<showstate> call
+O<imperialsub> endsub
+
+; main program
+g21 (metric)
+g90 (absolute)
+f200 (fast speed)
+S2500 (high rpm)
+
+(debug, in main, state now:)
+o<showstate> call
+
+M70 (save caller state in at global level)
+O<imperialsub> call
+M72 (explicitely restore state)
+
+(debug, back in main, state now:)
+o<showstate> call
+m2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (sub
+      (o_name)
+      (body
+        (line
+          (debug
+            (named_global_parameter)
+            (named_global_parameter)
+            (named_global_parameter)
+            (named_global_parameter))))
+      (endsub
+        (o_name))))
+  (line
+    (sub
+      (o_name)
+      (body
+        (line
+          (g)
+          (comment))
+        (line
+          (g)
+          (comment))
+        (line
+          (f
+            (literal))
+          (comment))
+        (line
+          (s
+            (literal))
+          (comment))
+        (line
+          (debug))
+        (line
+          (call
+            (o_name))))
+      (endsub
+        (o_name))))
+  (line
+    (comment))
+  (line
+    (g)
+    (comment))
+  (line
+    (g)
+    (comment))
+  (line
+    (f
+      (literal))
+    (comment))
+  (line
+    (s
+      (literal))
+    (comment))
+  (line
+    (debug))
+  (line
+    (call
+      (o_name)))
+  (line
+    (m)
+    (comment))
+  (line
+    (call
+      (o_name)))
+  (line
+    (m)
+    (comment))
+  (line
+    (debug))
+  (line
+    (call
+      (o_name)))
+  (line
+    (m)))
+
+================================================================================
+M codes 22
+================================================================================
+
+O<showstate> sub
+(DEBUG, imperial=#<_imperial> absolute=#<_absolute> feed=#<_feed> rpm=#<_rpm>)
+O<showstate> endsub
+
+O<imperialsub> sub
+M73 (save caller state in current call context, restore on return or endsub)
+g20 (imperial)
+g91 (relative mode)
+F5 (low feed)
+S300 (low rpm)
+(debug, in subroutine, state now:)
+o<showstate> call
+
+; note - no M72 is needed here - the following endsub or an
+; explicit 'return' will restore caller state
+O<imperialsub> endsub
+
+; main program
+g21 (metric)
+g90 (absolute)
+f200 (fast speed)
+S2500 (high rpm)
+(debug, in main, state now:)
+o<showstate> call
+o<imperialsub> call
+(debug, back in main, state now:)
+o<showstate> call
+m2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (sub
+      (o_name)
+      (body
+        (line
+          (debug
+            (named_global_parameter)
+            (named_global_parameter)
+            (named_global_parameter)
+            (named_global_parameter))))
+      (endsub
+        (o_name))))
+  (line
+    (sub
+      (o_name)
+      (body
+        (line
+          (m)
+          (comment))
+        (line
+          (g)
+          (comment))
+        (line
+          (g)
+          (comment))
+        (line
+          (f
+            (literal))
+          (comment))
+        (line
+          (s
+            (literal))
+          (comment))
+        (line
+          (debug))
+        (line
+          (call
+            (o_name)))
+        (line
+          (comment))
+        (line
+          (comment)))
+      (endsub
+        (o_name))))
+  (line
+    (comment))
+  (line
+    (g)
+    (comment))
+  (line
+    (g)
+    (comment))
+  (line
+    (f
+      (literal))
+    (comment))
+  (line
+    (s
+      (literal))
+    (comment))
+  (line
+    (debug))
+  (line
+    (call
+      (o_name)))
+  (line
+    (call
+      (o_name)))
+  (line
+    (debug))
+  (line
+    (call
+      (o_name)))
+  (line
+    (m)))
+
+================================================================================
+M codes 23
+================================================================================
+
+O<measure> sub   (measure reference tool)
+;
+#<absolute> = #<_absolute>  (remember in local variable if G90 was set)
+;
+g30 (above switch)
+g38.2 z0 f15 (measure)
+g91 g0z.2 (off the switch)
+#1000=#5063 (save reference tool length)
+(print,reference length is #1000)
+;
+O<restore_abs> if [#<absolute>]
+    g90 (restore G90 only if it was set on entry:)
+O<restore_abs> endif
+;
+O<measure> endsub
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (sub
+      (o_name)
+      (body
+        (line
+          (comment))
+        (line
+          (comment))
+        (line
+          (assignment
+            (named_local_parameter)
+            (named_global_parameter))
+          (comment))
+        (line
+          (comment))
+        (line
+          (g)
+          (comment))
+        (line
+          (g)
+          (z
+            (literal))
+          (f
+            (literal))
+          (comment))
+        (line
+          (g)
+          (g)
+          (z
+            (literal))
+          (comment))
+        (line
+          (assignment
+            (numbered_parameter)
+            (numbered_parameter))
+          (comment))
+        (line
+          (print
+            (numbered_parameter)))
+        (line
+          (comment))
+        (line
+          (if
+            (o_name)
+            condition: (expression
+              (named_local_parameter))
+            (body
+              (line
+                (g)
+                (comment)))
+            (endif
+              (o_name))))
+        (line
+          (comment)))
+      (endsub
+        (o_name)))))
+
+================================================================================
+M codes 24
+================================================================================
+
+M100 P123.456 Q321.654
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (m)
+    (p
+      (literal))
+    (q
+      (literal))))
+
+================================================================================
+O codes 1
+================================================================================
+
+(the start of o100)
+o100 sub
+(notice that the if-endif block uses a different number)
+  (the start of o110)
+  o110 if [#2 GT 5]
+    (some code here)
+  (the end of o110)
+  o110 endif
+  (some more code here)
+(the end of o100)
+o100 endsub
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (comment))
+  (line
+    (sub
+      (o_number)
+      (body
+        (line
+          (comment))
+        (line
+          (comment))
+        (line
+          (if
+            (o_number)
+            condition: (expression
+              (binary_expr
+                left: (numbered_parameter)
+                operator: (gt)
+                right: (literal)))
+            (body
+              (line
+                (comment))
+              (line
+                (comment)))
+            (endif
+              (o_number))))
+        (line
+          (comment))
+        (line
+          (comment)))
+      (endsub
+        (o_number)))))
+
+================================================================================
+O codes 3
+================================================================================
+
+o100 sub
+  G53 G0 X0 Y0 Z0 (rapid move to machine home)
+o100 endsub
+
+(the subroutine is called)
+o100 call
+M2
+
+o100 sub
+  (test if parameter #2 is greater than 5)
+  o110 if [#2 GT 5]
+    (return to top of subroutine if test is true)
+    o100 return
+  o110 endif
+    (this only gets executed if parameter #2 is not greater than 5)
+    (DEBUG, parameter 1 is [#1])
+o100 endsub
+
+o100 sub
+  (test if parameter #2 is greater than 5)
+  o110 if [#2 GT 5]
+    (return to top of subroutine if test is true)
+    o100 return
+  o110 endif
+    (this only gets executed if parameter #2 is not greater than 5)
+    (DEBUG, parameter 1 is [#1])
+    (DEBUG, parameter 3 is [#3])
+o100 endsub
+
+o100 call [100] [2] [325]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (sub
+      (o_number)
+      (body
+        (line
+          (g)
+          (g)
+          (x
+            (literal))
+          (y
+            (literal))
+          (z
+            (literal))
+          (comment)))
+      (endsub
+        (o_number))))
+  (line
+    (comment))
+  (line
+    (call
+      (o_number)))
+  (line
+    (m))
+  (line
+    (sub
+      (o_number)
+      (body
+        (line
+          (comment))
+        (line
+          (if
+            (o_number)
+            condition: (expression
+              (binary_expr
+                left: (numbered_parameter)
+                operator: (gt)
+                right: (literal)))
+            (body
+              (line
+                (comment))
+              (line
+                (return
+                  (o_number))))
+            (endif
+              (o_number))))
+        (line
+          (comment))
+        (line
+          (debug
+            (numbered_parameter))))
+      (endsub
+        (o_number))))
+  (line
+    (sub
+      (o_number)
+      (body
+        (line
+          (comment))
+        (line
+          (if
+            (o_number)
+            condition: (expression
+              (binary_expr
+                left: (numbered_parameter)
+                operator: (gt)
+                right: (literal)))
+            (body
+              (line
+                (comment))
+              (line
+                (return
+                  (o_number))))
+            (endif
+              (o_number))))
+        (line
+          (comment))
+        (line
+          (debug
+            (numbered_parameter)))
+        (line
+          (debug
+            (numbered_parameter))))
+      (endsub
+        (o_number))))
+  (line
+    (call
+      (o_number)
+      (expression
+        (literal))
+      (expression
+        (literal))
+      (expression
+        (literal)))))
+
+================================================================================
+O codes 4 ex 1
+================================================================================
+
+(draw a sawtooth shape)
+G0 X1 Y0 (move to start position)
+#1 = 0 (assign parameter #1 the value of 0)
+F25 (set a feed rate)
+o101 while [#1 LT 10]
+  G1 X0
+  G1 Y[#1/10] X1
+  #1 = [#1+1] (increment the test counter)
+o101 endwhile
+M2 (end program)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (comment))
+  (line
+    (g)
+    (x
+      (literal))
+    (y
+      (literal))
+    (comment))
+  (line
+    (assignment
+      (numbered_parameter)
+      (literal))
+    (comment))
+  (line
+    (f
+      (literal))
+    (comment))
+  (line
+    (while
+      (o_number)
+      condition: (expression
+        (binary_expr
+          left: (numbered_parameter)
+          operator: (lt)
+          right: (literal)))
+      (body
+        (line
+          (g)
+          (x
+            (literal)))
+        (line
+          (g)
+          (y
+            (expression
+              (binary_expr
+                left: (numbered_parameter)
+                operator: (div)
+                right: (literal))))
+          (x
+            (literal)))
+        (line
+          (assignment
+            (numbered_parameter)
+            (expression
+              (binary_expr
+                left: (numbered_parameter)
+                operator: (add)
+                right: (literal))))
+          (comment)))
+      (endwhile
+        (o_number))))
+  (line
+    (m)
+    (comment)))
+
+================================================================================
+O codes 4 ex 2
+================================================================================
+
+#1 = 0 (assign parameter #1 the value of 0)
+o100 do
+  (debug, parameter 1 = #1)
+  o110 if [#1 EQ 2]
+    #1 = 3 (assign the value of 3 to parameter #1)
+    (msg, #1 has been assigned the value of 3)
+    o100 continue (skip to start of loop)
+  o110 endif
+  (some code here)
+  #1 = [#1 + 1] (increment the test counter)
+o100 while [#1 LT 3]
+(msg, Loop Done!)
+M2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (assignment
+      (numbered_parameter)
+      (literal))
+    (comment))
+  (line
+    (do
+      (o_number)
+      (body
+        (line
+          (debug
+            (numbered_parameter)))
+        (line
+          (if
+            (o_number)
+            condition: (expression
+              (binary_expr
+                left: (numbered_parameter)
+                operator: (eq)
+                right: (literal)))
+            (body
+              (line
+                (assignment
+                  (numbered_parameter)
+                  (literal))
+                (comment))
+              (line
+                (msg
+                  (numbered_parameter)))
+              (line
+                (continue
+                  (o_number))
+                (comment)))
+            (endif
+              (o_number))))
+        (line
+          (comment))
+        (line
+          (assignment
+            (numbered_parameter)
+            (expression
+              (binary_expr
+                left: (numbered_parameter)
+                operator: (add)
+                right: (literal))))
+          (comment)))
+      (do_while
+        (o_number)
+        (expression
+          (binary_expr
+            left: (numbered_parameter)
+            operator: (lt)
+            right: (literal))))))
+  (line
+    (msg))
+  (line
+    (m)))
+
+================================================================================
+O codes 5 ex 1
+================================================================================
+
+(if parameter #31 is equal to 3 set S2000)
+o101 if [#31 EQ 3]
+  S2000
+o101 endif
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (comment))
+  (line
+    (if
+      (o_number)
+      condition: (expression
+        (binary_expr
+          left: (numbered_parameter)
+          operator: (eq)
+          right: (literal)))
+      (body
+        (line
+          (s
+            (literal))))
+      (endif
+        (o_number)))))
+
+================================================================================
+O codes 5 ex 2
+================================================================================
+
+(if parameter #2 is greater than 5 set F100)
+o102 if [#2 GT 5]
+  F100
+o102 elseif [#2 LT 2]
+(else if parameter #2 is less than 2 set F200)
+  F200
+(else if parameter #2 is 2 through 5 set F150)
+o102 else
+  F150
+o102 endif
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (comment))
+  (line
+    (if
+      (o_number)
+      condition: (expression
+        (binary_expr
+          left: (numbered_parameter)
+          operator: (gt)
+          right: (literal)))
+      (body
+        (line
+          (f
+            (literal))))
+      (elseif
+        (o_number)
+        condition: (expression
+          (binary_expr
+            left: (numbered_parameter)
+            operator: (lt)
+            right: (literal)))
+        (body
+          (line
+            (comment))
+          (line
+            (f
+              (literal)))
+          (line
+            (comment))))
+      (else
+        (o_number)
+        (body
+          (line
+            (f
+              (literal)))))
+      (endif
+        (o_number)))))
+
+================================================================================
+O codes 5 ex 3
+================================================================================
+
+(if parameter #2 is greater than 5 set F100)
+O102 if [#2 GT 5]
+  F100
+(else if parameter #2 less than 2 set F200)
+O102 elseif [#2 LT 2]
+  F20
+(parameter #2 is between 2 and 5)
+O102 else
+  F200
+O102 endif
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (comment))
+  (line
+    (if
+      (o_number)
+      condition: (expression
+        (binary_expr
+          left: (numbered_parameter)
+          operator: (gt)
+          right: (literal)))
+      (body
+        (line
+          (f
+            (literal)))
+        (line
+          (comment)))
+      (elseif
+        (o_number)
+        condition: (expression
+          (binary_expr
+            left: (numbered_parameter)
+            operator: (lt)
+            right: (literal)))
+        (body
+          (line
+            (f
+              (literal)))
+          (line
+            (comment))))
+      (else
+        (o_number)
+        (body
+          (line
+            (f
+              (literal)))))
+      (endif
+        (o_number)))))
+
+================================================================================
+O codes 6
+================================================================================
+
+(Mill 5 diagonal shapes)
+G91 (Incremental mode)
+o103 repeat [5]
+(insert milling code here)
+G0 X1 Y1 (diagonal move to next position)
+o103 endrepeat
+G90 (Absolute mode)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (comment))
+  (line
+    (g)
+    (comment))
+  (line
+    (repeat
+      (o_number)
+      count: (expression
+        (literal))
+      (body
+        (line
+          (comment))
+        (line
+          (g)
+          (x
+            (literal))
+          (y
+            (literal))
+          (comment)))
+      (endrepeat
+        (o_number))))
+  (line
+    (g)
+    (comment)))
+
+================================================================================
+O codes 7
+================================================================================
+
+o[#101+2] call
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (call
+      (o_indirect
+        (binary_expr
+          left: (numbered_parameter)
+          operator: (add)
+          right: (literal))))))
+
+================================================================================
+O codes 8
+================================================================================
+
+o<myfile> call
+
+o123 call
+
+(filename myfile.ngc)
+o<myfile> sub
+  (code here)
+o<myfile> endsub
+M2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (call
+      (o_name)))
+  (line
+    (call
+      (o_number)))
+  (line
+    (comment))
+  (line
+    (sub
+      (o_name)
+      (body
+        (line
+          (comment)))
+      (endsub
+        (o_name))))
+  (line
+    (m)))
+
+================================================================================
+O codes 9
+================================================================================
+
+o123 return [#2 *5]
+
+o123 sub (RMM: added sub to make endsub syntactically valid)
+o123 endsub [3 * 4]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (return
+      (o_number)
+      (expression
+        (binary_expr
+          left: (numbered_parameter)
+          operator: (mul)
+          right: (literal)))))
+  (line
+    (sub
+      (o_number)
+      (body
+        (line
+          (comment)))
+      (endsub
+        (o_number)
+        (expression
+          (binary_expr
+            left: (literal)
+            operator: (mul)
+            right: (literal)))))))

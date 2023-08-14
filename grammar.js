@@ -32,20 +32,27 @@ function controlComment(keyword) {
 }
 
 function controlCommentWithMessage($, keyword) {
-  return seq("(", kw(keyword), ",", optional($.comment_parameters), ")");
+  return seq("(", kw(keyword), ",", optional($._comment_parameters), ")");
 }
 
 const DECIMAL_RE = /[-+]?(\d+([.]\d+)?|[.]\d+)/;
 
-function axes($, letters) {
+function valueWords($, letters) {
   return choice(
     ...letters.split("").map(letter =>
       alias(
         seq(kw(letter), $._value),
-        $[`${letter.toLowerCase()}_axis`]
+        $[letter.toLowerCase()]
       )
     )
   );
+}
+
+function valueWord($, tok, name) {
+  return alias(
+    seq(alias(tok, tok), $._value),
+    $[name]
+  )
 }
 
 function sepBy1(sep, rule) {
@@ -56,6 +63,22 @@ function sepBy(sep, rule) {
   return optional(sepBy1(sep, rule))
 }
 
+function oLine($, ...body) {
+  return seq(
+    alias(/[oO]/, "O"),
+    choice(
+      alias(/\d+/, $.o_number),
+      seq("<", alias(token(/[^>]+/), $.o_name), ">"),
+      alias($.expression, $.o_indirect),
+    ),
+    ...body
+  )
+}
+
+function body($) {
+  return alias(repeat($.line), $.body)
+}
+
 module.exports = grammar({
   name: "linuxcnc_gcode",
 
@@ -64,33 +87,39 @@ module.exports = grammar({
     /\\( |\t|\v|\f)/,
   ],
 
+  conflicts: $ => [
+    [$.elseif],
+    [$.else],
+    [$.while, $.do_while],
+  ],
+
   rules: {
-    source_file: $ => sepBy(/\r?\n/, optional($.line)),
+    source_file: $ => repeat($.line),
+
+    _newline: $ => /\r?\n/,
 
     line: $ => seq(
       field("block_delete", optional(alias("/", $.block_delete))),
       field("block_number", optional(seq(alias(/[nN]/, "N"), alias(/\d+/, $.block_number)))),
-      repeat1($._word),
+      repeat1($._wordish),
+      $._newline
     ),
 
-    _word: $ => choice(
-      axes($, "ABCIJKUVWXYZ"),
+    _wordish: $ => choice(
+      valueWords($, "ABCDEFHIJKULPQRSTVWXYZ"),
+      valueWord($, "$", "spindle"),
       $.polar_distance,
       $.polar_angle,
       $.g,
       $.m,
-      $.feed_rate,
-      $.spindle_speed,
-      $.tool_number,
+      $.assignment,
       $._o,
       $._comment,
     ),
 
-    polar_distance: $ => alias(seq("@", $._value), $.distance),
-    polar_angle: $ => alias(seq("^", $._value), $.distance),
-    feed_rate: $ => seq(alias(/[fF]/, "F"), $._value),
-    spindle_speed: $ => seq(alias(/[sS]/, "S"), $._value),
-    tool_number: $ => seq(alias(/[tT]/, "T"), $._value),
+    polar_distance: $ => seq("@", $._value),
+    polar_angle: $ => seq("^", $._value),
+    assignment: $ => seq($._parameter, "=", $._value),
 
     g: $ => choice(
       kws("G0 G1 G2 G3 G4 G5 G5.1 G5.2 G5.3 G7 G8 G10 G17 G17.1 G18 G18.1 G19 G19.1 G20 G21"),
@@ -106,35 +135,158 @@ module.exports = grammar({
       alias(/[mM]1\d{2}/, "M1xx"),
     ),
 
-    _o: $ => seq(
-      alias(/[oO]/, "O"),
-      choice(
-        alias(/\d+/, $.o_number),
-        seq("<", alias(token(/[^>]+/), $.o_name), ">"),
-        alias($.expression, $.o_indirect),
-      ),
-      choice(
-        kw("sub"),
-        seq(kw("call"), repeat($.expression)),
-        seq(kw("return"), optional($.expression)),
-        kw("endsub"),
-        seq(kw("if"), $.expression),
-        kw("endif"),
-        seq(kw("while"), $.expression),
-        kw("endwhile"),
-        kw("break"),
-        kw("continue"),
-        seq(kw("repeat"), $.expression),
-        kw("endrepeat"),
-      ),
+    _o: $ => choice(
+      $.sub,
+      $.if,
+      $.do,
+      $.while,
+      $.repeat,
+      $.call,
+      $["return"],
+      $["break"],
+      $["continue"]
     ),
 
-    _comment: $ => choice(
-      $.msg,
-      $.probeopen,
-      $.probeclose,
-      $.logopen,
-      $._comment,
+    sub: $ => oLine($,
+      kw("sub"),
+      body($),
+      $.endsub
+    ),
+
+    endsub: $ => oLine($,
+      kw("endsub"),
+      optional($.expression)
+    ),
+
+    if: $ => oLine($,
+      kw("if"),
+      field("condition", $.expression),
+      $._newline,
+      body($),
+      repeat($.elseif),
+      optional($.else),
+      $.endif
+    ),
+
+    elseif: $ => oLine($,
+      kw("elseif"),
+      field("condition", $.expression),
+      $._newline,
+      body($)
+    ),
+
+    "else": $ => oLine($,
+      kw("else"),
+      $._newline,
+      body($)
+    ),
+
+    endif: $ => oLine($, kw("endif")),
+
+    do: $ => oLine($,
+      kw("do"),
+      $._newline,
+      body($),
+      $.do_while
+    ),
+
+    do_while: $ => oLine($,
+      kw("while"),
+      $.expression
+    ),
+
+    while: $ => oLine($,
+      kw("while"),
+      field("condition", $.expression),
+      $._newline,
+      body($),
+      $.endwhile
+    ),
+
+    endwhile: $ => oLine($, kw("endwhile")),
+
+    repeat: $ => oLine($,
+      kw("repeat"),
+      field("count", $.expression),
+      $._newline,
+      body($),
+      $.endrepeat
+    ),
+
+    endrepeat: $ => oLine($, kw("endrepeat")),
+
+    call: $ => oLine($, kw("call"), repeat($.expression)),
+    "return": $ => oLine($, kw("return"), repeat($.expression)),
+    "break": $ => oLine($, kw("break")),
+    "continue": $ => oLine($, kw("continue")),
+
+    _value: $ => choice(
+      $.literal,
+      $._parameter,
+      $.expression
+      // LinuxCNC docs claim a bare function can be used here but that seems a tad too spooky,
+      // so skip on it for now
+    ),
+
+    expression: $ => seq("[", $._expr, "]"),
+
+    _expr: $ => choice(
+      prec(7, $._parameter),
+      prec(7, $.literal),
+      $.atan_call_expr,
+      $.func_call_expr,
+      $.binary_expr,
+    ),
+
+    _parameter: $ => choice(
+      seq("#<", choice(
+        alias(/_[^>]+/, $.named_global_parameter),
+        alias(/[^_>][^>]*/, $.named_local_parameter),
+      ), ">"),
+      alias(/#\d+/, $.numbered_parameter),
+    ),
+
+    literal: $ => DECIMAL_RE,
+
+    binary_expr: $ => {
+      function kwop(keyword) {
+        return alias(caseInsensitiveRe(keyword), $[keyword]);
+      }
+
+      function kwops(keywords, prec) {
+        return keywords.split(" ").map((s) => [kwop(s), prec]);
+      }
+
+      const table = [
+        [alias("**", $.pow), 6],
+        [alias("*", $.mul), 5],
+        [alias("/", $.div), 5],
+        [kwop("mod"), 5],
+        [alias("+", $.add), 4],
+        [alias("-", $.sub), 4],
+        ...kwops("eq ne gt ge lt le", 3),
+        ...kwops("and or xor", 2)
+      ];
+
+      return choice(...table.map(([operator, precedence]) => {
+        return prec.left(precedence, seq(
+          field("left", $._expr),
+          field("operator", operator),
+          field("right", $._expr)
+        ));
+      }));
+    },
+
+    atan_call_expr: $ => seq(
+      kw("ATAN"),
+      $.expression,
+      "/",
+      $.expression
+    ),
+
+    func_call_expr: $ => seq(
+      kws("ABS ACOS ASIN COS EXP FIX FUP ROUND LN SN SIN SQRT TAN EXISTS"),
+      $.expression
     ),
 
     _comment: $ => choice(
@@ -150,62 +302,6 @@ module.exports = grammar({
       prec(-1, $.comment),
     ),
 
-    _value: $ => choice($.literal, $.expression),
-
-    expression: $ => seq("[", $._expr, "]"),
-
-    _expr: $ => choice(
-      prec(7, $._parameter),
-      prec(7, $.literal),
-      $._binary_expr,
-    ),
-
-    _parameter: $ => choice(
-      seq("#<", alias(/[^>]+/, $.named_parameter), ">"),
-      alias(/#\d+/, $.numbered_parameter),
-    ),
-
-    literal: $ => DECIMAL_RE,
-
-    _binary_expr: $ => choice(
-      $.pow_expr,
-      $.mul_expr,
-      $.div_expr,
-      prec.left(5, $.mod_expr),
-      prec.left(4, $.add_expr),
-      prec.left(4, $.sub_expr),
-      prec.left(3, $.eq_expr),
-      prec.left(3, $.ne_expr),
-      prec.left(3, $.gt_expr),
-      prec.left(3, $.ge_expr),
-      prec.left(3, $.lt_expr),
-      prec.left(3, $.le_expr),
-      prec.left(2, $.and_expr),
-      prec.left(2, $.or_expr),
-      prec.left(2, $.xor_expr),
-    ),
-
-    pow_expr: $ => prec(6, seq($._expr, "**", $._expr)),
-    mul_expr: $ => prec.left(5, seq($._expr, "*", $._expr)),
-    div_expr: $ => prec.left(5, seq($._expr, "/", $._expr)),
-    mod_expr: $ => prec.left(5, seq($._expr, "%", $._expr)),
-    add_expr: $ => prec.left(4, seq($._expr, "+", $._expr)),
-    sub_expr: $ => prec.left(4, seq($._expr, "-", $._expr)),
-    eq_expr: $ => prec(3, seq($._expr, kw("eq"), $._expr)),
-    ne_expr: $ => prec(3, seq($._expr, kw("ne"), $._expr)),
-    gt_expr: $ => prec(3, seq($._expr, kw("gt"), $._expr)),
-    ge_expr: $ => prec(3, seq($._expr, kw("ge"), $._expr)),
-    lt_expr: $ => prec(3, seq($._expr, kw("lt"), $._expr)),
-    le_expr: $ => prec(3, seq($._expr, lw("le"), $._expr)),
-    and_expr: $ => prec.left(2, seq($._expr, kw("and"), $._expr)),
-    or_expr: $ => prec.left(2, seq($._expr, kw("or"), $._expr)),
-    xor_expr: $ => prec.left(2, seq($._expr, kw("xor"), $._expr)),
-
-    "function": $ => choice(
-      seq(kw("ATAN"), $.expression, "/", $.expression),
-      kws("ABS ACOS ASIN COS EXP FIX FUP ROUND LN SN SIN SQRT TAN EXISTS"),
-    ),
-
     probeopen: $ => controlCommentWithArg("probeopen", $.filename),
     probeclose: $ => controlComment("probeclose"),
     logopen: $ => controlCommentWithArg("logopen", $.filename),
@@ -216,9 +312,12 @@ module.exports = grammar({
     debug: $ => controlCommentWithMessage($, "debug"),
     print: $ => controlCommentWithMessage($, "print"),
 
-    comment: $ => seq("(", token(prec(-1, /[^)]*/)), ")"),
+    comment: $ => choice(
+      seq("(", token(prec(-1, /[^)]*/)), ")"),
+      seq(";", /[^\r\n]*/)
+    ),
 
-    comment_parameters: $ => repeat1(
+    _comment_parameters: $ => repeat1(
       choice(
         $._parameter,
         /[^)#]+/,

@@ -1,5 +1,332 @@
 ================================================================================
+parameters, basically
+================================================================================
 
-
+X[#1234]
+X[#<abc>]
+X[#<_abc>]
 
 --------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (x
+      (expression
+        (numbered_parameter))))
+  (line
+    (x
+      (expression
+        (named_local_parameter))))
+  (line
+    (x
+      (expression
+        (named_global_parameter)))))
+
+================================================================================
+arithmetic
+================================================================================
+
+X[1+1] X[1-1] X[2*2] X[2/2] X[2 MOD 2] X[2 mod 2]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (x
+      (expression
+        (binary_expr
+          left: (literal)
+          operator: (add)
+          right: (literal))))
+    (x
+      (expression
+        (binary_expr
+          left: (literal)
+          operator: (sub)
+          right: (literal))))
+    (x
+      (expression
+        (binary_expr
+          left: (literal)
+          operator: (mul)
+          right: (literal))))
+    (x
+      (expression
+        (binary_expr
+          left: (literal)
+          operator: (div)
+          right: (literal))))
+    (x
+      (expression
+        (binary_expr
+          left: (literal)
+          operator: (mod)
+          right: (literal))))
+    (x
+      (expression
+        (binary_expr
+          left: (literal)
+          operator: (mod)
+          right: (literal))))))
+
+================================================================================
+same precedence resolution
+================================================================================
+
+X[1 ** 2 ** 3]
+X[1 + 2 - 3]
+X[1 * 2 / 3 mod 4]
+X[1 eq 2 ne 3 gt 4 ge 5 lt 6 le 7]
+X[1 and 2 or 3]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (x
+      (expression
+        (binary_expr
+          left: (binary_expr
+            left: (literal)
+            operator: (pow)
+            right: (literal))
+          operator: (pow)
+          right: (literal)))))
+  (line
+    (x
+      (expression
+        (binary_expr
+          left: (binary_expr
+            left: (literal)
+            operator: (add)
+            right: (literal))
+          operator: (sub)
+          right: (literal)))))
+  (line
+    (x
+      (expression
+        (binary_expr
+          left: (binary_expr
+            left: (binary_expr
+              left: (literal)
+              operator: (mul)
+              right: (literal))
+            operator: (div)
+            right: (literal))
+          operator: (mod)
+          right: (literal)))))
+  (line
+    (x
+      (expression
+        (binary_expr
+          left: (binary_expr
+            left: (binary_expr
+              left: (binary_expr
+                left: (binary_expr
+                  left: (binary_expr
+                    left: (literal)
+                    operator: (eq)
+                    right: (literal))
+                  operator: (ne)
+                  right: (literal))
+                operator: (gt)
+                right: (literal))
+              operator: (ge)
+              right: (literal))
+            operator: (lt)
+            right: (literal))
+          operator: (le)
+          right: (literal)))))
+  (line
+    (x
+      (expression
+        (binary_expr
+          left: (binary_expr
+            left: (literal)
+            operator: (and)
+            right: (literal))
+          operator: (or)
+          right: (literal))))))
+
+================================================================================
+mixed precedence resolution
+================================================================================
+
+X[1 + 2 / 5 mod 4 - 2 * 3 ** 4]
+X[1 eq 2 and 3 ne 4]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (x
+      (expression
+        (binary_expr
+          left: (binary_expr
+            left: (literal)
+            operator: (add)
+            right: (binary_expr
+              left: (binary_expr
+                left: (literal)
+                operator: (div)
+                right: (literal))
+              operator: (mod)
+              right: (literal)))
+          operator: (sub)
+          right: (binary_expr
+            left: (literal)
+            operator: (mul)
+            right: (binary_expr
+              left: (literal)
+              operator: (pow)
+              right: (literal)))))))
+  (line
+    (x
+      (expression
+        (binary_expr
+          left: (binary_expr
+            left: (literal)
+            operator: (eq)
+            right: (literal))
+          operator: (and)
+          right: (binary_expr
+            left: (literal)
+            operator: (ne)
+            right: (literal)))))))
+
+================================================================================
+regular looking functions
+================================================================================
+
+X[ABS[1]] X[ACOS[2]] X[ASIN[3]] X[COS[4]] X[EXP[5]] X[FIX[6]] X[FUP[7]]
+X[ROUND[8]] X[LN[9]] X[SIN[10]] X[SQRT[11]] X[TAN[12]] X[EXISTS[13]]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (literal)))))
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (literal)))))
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (literal)))))
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (literal)))))
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (literal)))))
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (literal)))))
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (literal))))))
+  (line
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (literal)))))
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (literal)))))
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (literal)))))
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (literal)))))
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (literal)))))
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (literal)))))))
+
+================================================================================
+functions applied to expressions
+================================================================================
+
+X[ABS[1+2]] X[ABS[ACOS[3]]]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (binary_expr
+              left: (literal)
+              operator: (add)
+              right: (literal))))))
+    (x
+      (expression
+        (func_call_expr
+          (expression
+            (func_call_expr
+              (expression
+                (literal)))))))))
+
+================================================================================
+ATAN
+================================================================================
+
+X[ATAN[1]/[2]]
+X[ATAN[1/2]/[3/4]]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (x
+      (expression
+        (atan_call_expr
+          (expression
+            (literal))
+          (expression
+            (literal))))))
+  (line
+    (x
+      (expression
+        (atan_call_expr
+          (expression
+            (binary_expr
+              (literal)
+              (div)
+              (literal)))
+          (expression
+            (binary_expr
+              (literal)
+              (div)
+              (literal))))))))

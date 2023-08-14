@@ -1,6 +1,6 @@
 [
   {
-    "type": "a_axis",
+    "type": "a",
     "named": true,
     "fields": {},
     "children": {
@@ -14,12 +14,24 @@
         {
           "type": "literal",
           "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
         }
       ]
     }
   },
   {
-    "type": "add_expr",
+    "type": "assignment",
     "named": true,
     "fields": {},
     "children": {
@@ -27,31 +39,7 @@
       "required": true,
       "types": [
         {
-          "type": "add_expr",
-          "named": true
-        },
-        {
-          "type": "and_expr",
-          "named": true
-        },
-        {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
+          "type": "expression",
           "named": true
         },
         {
@@ -59,50 +47,22 @@
           "named": true
         },
         {
-          "type": "lt_expr",
+          "type": "named_global_parameter",
           "named": true
         },
         {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
+          "type": "named_local_parameter",
           "named": true
         },
         {
           "type": "numbered_parameter",
-          "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "and_expr",
+    "type": "atan_call_expr",
     "named": true,
     "fields": {},
     "children": {
@@ -110,31 +70,22 @@
       "required": true,
       "types": [
         {
-          "type": "add_expr",
+          "type": "expression",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "b",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
         {
-          "type": "and_expr",
-          "named": true
-        },
-        {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
+          "type": "expression",
           "named": true
         },
         {
@@ -142,50 +93,216 @@
           "named": true
         },
         {
-          "type": "lt_expr",
+          "type": "named_global_parameter",
           "named": true
         },
         {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
+          "type": "named_local_parameter",
           "named": true
         },
         {
           "type": "numbered_parameter",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "binary_expr",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "#<",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": "atan_call_expr",
+            "named": true
+          },
+          {
+            "type": "binary_expr",
+            "named": true
+          },
+          {
+            "type": "func_call_expr",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "named_global_parameter",
+            "named": true
+          },
+          {
+            "type": "named_local_parameter",
+            "named": true
+          },
+          {
+            "type": "numbered_parameter",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "add",
+            "named": true
+          },
+          {
+            "type": "and",
+            "named": true
+          },
+          {
+            "type": "div",
+            "named": true
+          },
+          {
+            "type": "eq",
+            "named": true
+          },
+          {
+            "type": "ge",
+            "named": true
+          },
+          {
+            "type": "gt",
+            "named": true
+          },
+          {
+            "type": "le",
+            "named": true
+          },
+          {
+            "type": "lt",
+            "named": true
+          },
+          {
+            "type": "mod",
+            "named": true
+          },
+          {
+            "type": "mul",
+            "named": true
+          },
+          {
+            "type": "ne",
+            "named": true
+          },
+          {
+            "type": "or",
+            "named": true
+          },
+          {
+            "type": "pow",
+            "named": true
+          },
+          {
+            "type": "sub",
+            "named": true
+          },
+          {
+            "type": "xor",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "#<",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": "atan_call_expr",
+            "named": true
+          },
+          {
+            "type": "binary_expr",
+            "named": true
+          },
+          {
+            "type": "func_call_expr",
+            "named": true
+          },
+          {
+            "type": "literal",
+            "named": true
+          },
+          {
+            "type": "named_global_parameter",
+            "named": true
+          },
+          {
+            "type": "named_local_parameter",
+            "named": true
+          },
+          {
+            "type": "numbered_parameter",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
         {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
+          "type": "line",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "b_axis",
+    "type": "break",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "o_indirect",
+          "named": true
+        },
+        {
+          "type": "o_name",
+          "named": true
+        },
+        {
+          "type": "o_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "c",
     "named": true,
     "fields": {},
     "children": {
@@ -199,16 +316,28 @@
         {
           "type": "literal",
           "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
         }
       ]
     }
   },
   {
-    "type": "c_axis",
+    "type": "call",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -216,7 +345,15 @@
           "named": true
         },
         {
-          "type": "literal",
+          "type": "o_indirect",
+          "named": true
+        },
+        {
+          "type": "o_name",
+          "named": true
+        },
+        {
+          "type": "o_number",
           "named": true
         }
       ]
@@ -228,15 +365,50 @@
     "fields": {}
   },
   {
-    "type": "comment_parameters",
+    "type": "continue",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
-          "type": "named_parameter",
+          "type": "o_indirect",
+          "named": true
+        },
+        {
+          "type": "o_name",
+          "named": true
+        },
+        {
+          "type": "o_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "d",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
           "named": true
         },
         {
@@ -251,23 +423,89 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "comment_parameters",
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "distance",
+    "type": "do",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "body",
+          "named": true
+        },
+        {
+          "type": "do_while",
+          "named": true
+        },
+        {
+          "type": "o_indirect",
+          "named": true
+        },
+        {
+          "type": "o_name",
+          "named": true
+        },
+        {
+          "type": "o_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "do_while",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "o_indirect",
+          "named": true
+        },
+        {
+          "type": "o_name",
+          "named": true
+        },
+        {
+          "type": "o_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "e",
     "named": true,
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "expression",
@@ -276,12 +514,24 @@
         {
           "type": "literal",
           "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
         }
       ]
     }
   },
   {
-    "type": "div_expr",
+    "type": "else",
     "named": true,
     "fields": {},
     "children": {
@@ -289,82 +539,110 @@
       "required": true,
       "types": [
         {
-          "type": "add_expr",
+          "type": "body",
           "named": true
         },
         {
-          "type": "and_expr",
+          "type": "o_indirect",
           "named": true
         },
         {
-          "type": "div_expr",
+          "type": "o_name",
           "named": true
         },
         {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "lt_expr",
-          "named": true
-        },
-        {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
-          "named": true
-        },
-        {
-          "type": "numbered_parameter",
-          "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
+          "type": "o_number",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "eq_expr",
+    "type": "elseif",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "body",
+          "named": true
+        },
+        {
+          "type": "o_indirect",
+          "named": true
+        },
+        {
+          "type": "o_name",
+          "named": true
+        },
+        {
+          "type": "o_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "endif",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "o_indirect",
+          "named": true
+        },
+        {
+          "type": "o_name",
+          "named": true
+        },
+        {
+          "type": "o_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "endrepeat",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "o_indirect",
+          "named": true
+        },
+        {
+          "type": "o_name",
+          "named": true
+        },
+        {
+          "type": "o_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "endsub",
     "named": true,
     "fields": {},
     "children": {
@@ -372,75 +650,42 @@
       "required": true,
       "types": [
         {
-          "type": "add_expr",
+          "type": "expression",
           "named": true
         },
         {
-          "type": "and_expr",
+          "type": "o_indirect",
           "named": true
         },
         {
-          "type": "div_expr",
+          "type": "o_name",
           "named": true
         },
         {
-          "type": "eq_expr",
+          "type": "o_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "endwhile",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "o_indirect",
           "named": true
         },
         {
-          "type": "ge_expr",
+          "type": "o_name",
           "named": true
         },
         {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "lt_expr",
-          "named": true
-        },
-        {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
-          "named": true
-        },
-        {
-          "type": "numbered_parameter",
-          "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
+          "type": "o_number",
           "named": true
         }
       ]
@@ -455,31 +700,15 @@
       "required": true,
       "types": [
         {
-          "type": "add_expr",
+          "type": "atan_call_expr",
           "named": true
         },
         {
-          "type": "and_expr",
+          "type": "binary_expr",
           "named": true
         },
         {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
+          "type": "func_call_expr",
           "named": true
         },
         {
@@ -487,50 +716,22 @@
           "named": true
         },
         {
-          "type": "lt_expr",
+          "type": "named_global_parameter",
           "named": true
         },
         {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
+          "type": "named_local_parameter",
           "named": true
         },
         {
           "type": "numbered_parameter",
-          "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "feed_rate",
+    "type": "f",
     "named": true,
     "fields": {},
     "children": {
@@ -543,6 +744,33 @@
         },
         {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "func_call_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
           "named": true
         }
       ]
@@ -554,173 +782,7 @@
     "fields": {}
   },
   {
-    "type": "ge_expr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "add_expr",
-          "named": true
-        },
-        {
-          "type": "and_expr",
-          "named": true
-        },
-        {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "lt_expr",
-          "named": true
-        },
-        {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
-          "named": true
-        },
-        {
-          "type": "numbered_parameter",
-          "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "gt_expr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "add_expr",
-          "named": true
-        },
-        {
-          "type": "and_expr",
-          "named": true
-        },
-        {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "lt_expr",
-          "named": true
-        },
-        {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
-          "named": true
-        },
-        {
-          "type": "numbered_parameter",
-          "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "i_axis",
+    "type": "h",
     "named": true,
     "fields": {},
     "children": {
@@ -734,126 +796,191 @@
         {
           "type": "literal",
           "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "j_axis",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
+        },
         {
-          "type": "expression",
+          "type": "named_global_parameter",
           "named": true
         },
         {
-          "type": "literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "k_axis",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "le_expr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "add_expr",
-          "named": true
-        },
-        {
-          "type": "and_expr",
-          "named": true
-        },
-        {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "lt_expr",
-          "named": true
-        },
-        {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
+          "type": "named_local_parameter",
           "named": true
         },
         {
           "type": "numbered_parameter",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "i",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
         {
-          "type": "or_expr",
+          "type": "expression",
           "named": true
         },
         {
-          "type": "pow_expr",
+          "type": "literal",
           "named": true
         },
         {
-          "type": "sub_expr",
+          "type": "named_global_parameter",
           "named": true
         },
         {
-          "type": "xor_expr",
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "if",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "body",
+          "named": true
+        },
+        {
+          "type": "else",
+          "named": true
+        },
+        {
+          "type": "elseif",
+          "named": true
+        },
+        {
+          "type": "endif",
+          "named": true
+        },
+        {
+          "type": "o_indirect",
+          "named": true
+        },
+        {
+          "type": "o_name",
+          "named": true
+        },
+        {
+          "type": "o_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "j",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "k",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "l",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
           "named": true
         }
       ]
@@ -893,15 +1020,27 @@
       "required": true,
       "types": [
         {
-          "type": "a_axis",
+          "type": "a",
           "named": true
         },
         {
-          "type": "b_axis",
+          "type": "assignment",
           "named": true
         },
         {
-          "type": "c_axis",
+          "type": "b",
+          "named": true
+        },
+        {
+          "type": "break",
+          "named": true
+        },
+        {
+          "type": "c",
+          "named": true
+        },
+        {
+          "type": "call",
           "named": true
         },
         {
@@ -909,15 +1048,27 @@
           "named": true
         },
         {
+          "type": "continue",
+          "named": true
+        },
+        {
+          "type": "d",
+          "named": true
+        },
+        {
           "type": "debug",
           "named": true
         },
         {
-          "type": "expression",
+          "type": "do",
           "named": true
         },
         {
-          "type": "feed_rate",
+          "type": "e",
+          "named": true
+        },
+        {
+          "type": "f",
           "named": true
         },
         {
@@ -925,15 +1076,27 @@
           "named": true
         },
         {
-          "type": "i_axis",
+          "type": "h",
           "named": true
         },
         {
-          "type": "j_axis",
+          "type": "i",
           "named": true
         },
         {
-          "type": "k_axis",
+          "type": "if",
+          "named": true
+        },
+        {
+          "type": "j",
+          "named": true
+        },
+        {
+          "type": "k",
+          "named": true
+        },
+        {
+          "type": "l",
           "named": true
         },
         {
@@ -961,15 +1124,7 @@
           "named": true
         },
         {
-          "type": "o_indirect",
-          "named": true
-        },
-        {
-          "type": "o_name",
-          "named": true
-        },
-        {
-          "type": "o_number",
+          "type": "p",
           "named": true
         },
         {
@@ -993,35 +1148,63 @@
           "named": true
         },
         {
-          "type": "spindle_speed",
+          "type": "q",
           "named": true
         },
         {
-          "type": "tool_number",
+          "type": "r",
           "named": true
         },
         {
-          "type": "u_axis",
+          "type": "repeat",
           "named": true
         },
         {
-          "type": "v_axis",
+          "type": "return",
           "named": true
         },
         {
-          "type": "w_axis",
+          "type": "s",
           "named": true
         },
         {
-          "type": "x_axis",
+          "type": "spindle",
           "named": true
         },
         {
-          "type": "y_axis",
+          "type": "sub",
           "named": true
         },
         {
-          "type": "z_axis",
+          "type": "t",
+          "named": true
+        },
+        {
+          "type": "u",
+          "named": true
+        },
+        {
+          "type": "v",
+          "named": true
+        },
+        {
+          "type": "w",
+          "named": true
+        },
+        {
+          "type": "while",
+          "named": true
+        },
+        {
+          "type": "x",
+          "named": true
+        },
+        {
+          "type": "y",
+          "named": true
+        },
+        {
+          "type": "z",
           "named": true
         }
       ]
@@ -1032,11 +1215,19 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "comment_parameters",
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
           "named": true
         }
       ]
@@ -1080,352 +1271,28 @@
     }
   },
   {
-    "type": "lt_expr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "add_expr",
-          "named": true
-        },
-        {
-          "type": "and_expr",
-          "named": true
-        },
-        {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "lt_expr",
-          "named": true
-        },
-        {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
-          "named": true
-        },
-        {
-          "type": "numbered_parameter",
-          "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "m",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "mod_expr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "add_expr",
-          "named": true
-        },
-        {
-          "type": "and_expr",
-          "named": true
-        },
-        {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "lt_expr",
-          "named": true
-        },
-        {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
-          "named": true
-        },
-        {
-          "type": "numbered_parameter",
-          "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "msg",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "comment_parameters",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "mul_expr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "add_expr",
+          "type": "named_global_parameter",
           "named": true
         },
         {
-          "type": "and_expr",
-          "named": true
-        },
-        {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "lt_expr",
-          "named": true
-        },
-        {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
+          "type": "named_local_parameter",
           "named": true
         },
         {
           "type": "numbered_parameter",
-          "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "ne_expr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "add_expr",
-          "named": true
-        },
-        {
-          "type": "and_expr",
-          "named": true
-        },
-        {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "lt_expr",
-          "named": true
-        },
-        {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
-          "named": true
-        },
-        {
-          "type": "numbered_parameter",
-          "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
           "named": true
         }
       ]
@@ -1440,31 +1307,15 @@
       "required": true,
       "types": [
         {
-          "type": "add_expr",
+          "type": "atan_call_expr",
           "named": true
         },
         {
-          "type": "and_expr",
+          "type": "binary_expr",
           "named": true
         },
         {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
+          "type": "func_call_expr",
           "named": true
         },
         {
@@ -1472,82 +1323,30 @@
           "named": true
         },
         {
-          "type": "lt_expr",
+          "type": "named_global_parameter",
           "named": true
         },
         {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
+          "type": "named_local_parameter",
           "named": true
         },
         {
           "type": "numbered_parameter",
-          "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "or_expr",
+    "type": "p",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "add_expr",
-          "named": true
-        },
-        {
-          "type": "and_expr",
-          "named": true
-        },
-        {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
+          "type": "expression",
           "named": true
         },
         {
@@ -1555,43 +1354,15 @@
           "named": true
         },
         {
-          "type": "lt_expr",
+          "type": "named_global_parameter",
           "named": true
         },
         {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
+          "type": "named_local_parameter",
           "named": true
         },
         {
           "type": "numbered_parameter",
-          "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
           "named": true
         }
       ]
@@ -1602,11 +1373,27 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "distance",
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
           "named": true
         }
       ]
@@ -1617,50 +1404,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "distance",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "pow_expr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "add_expr",
-          "named": true
-        },
-        {
-          "type": "and_expr",
-          "named": true
-        },
-        {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
+          "type": "expression",
           "named": true
         },
         {
@@ -1668,43 +1416,15 @@
           "named": true
         },
         {
-          "type": "lt_expr",
+          "type": "named_global_parameter",
           "named": true
         },
         {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
+          "type": "named_local_parameter",
           "named": true
         },
         {
           "type": "numbered_parameter",
-          "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
           "named": true
         }
       ]
@@ -1715,11 +1435,19 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
-          "type": "comment_parameters",
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
           "named": true
         }
       ]
@@ -1747,6 +1475,168 @@
     }
   },
   {
+    "type": "q",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "r",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "repeat",
+    "named": true,
+    "fields": {
+      "count": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "body",
+          "named": true
+        },
+        {
+          "type": "endrepeat",
+          "named": true
+        },
+        {
+          "type": "o_indirect",
+          "named": true
+        },
+        {
+          "type": "o_name",
+          "named": true
+        },
+        {
+          "type": "o_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "return",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "o_indirect",
+          "named": true
+        },
+        {
+          "type": "o_name",
+          "named": true
+        },
+        {
+          "type": "o_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "s",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "fields": {},
@@ -1762,7 +1652,7 @@
     }
   },
   {
-    "type": "spindle_speed",
+    "type": "spindle",
     "named": true,
     "fields": {},
     "children": {
@@ -1776,222 +1666,63 @@
         {
           "type": "literal",
           "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "sub_expr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
+        },
         {
-          "type": "add_expr",
+          "type": "named_global_parameter",
           "named": true
         },
         {
-          "type": "and_expr",
-          "named": true
-        },
-        {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        },
-        {
-          "type": "lt_expr",
-          "named": true
-        },
-        {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
+          "type": "named_local_parameter",
           "named": true
         },
         {
           "type": "numbered_parameter",
           "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
-          "named": true
         }
       ]
     }
   },
   {
-    "type": "tool_number",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "u_axis",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "v_axis",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "w_axis",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "x_axis",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "expression",
-          "named": true
-        },
-        {
-          "type": "literal",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "xor_expr",
+    "type": "sub",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "body",
+          "named": true
+        },
+        {
+          "type": "endsub",
+          "named": true
+        },
+        {
+          "type": "o_indirect",
+          "named": true
+        },
+        {
+          "type": "o_name",
+          "named": true
+        },
+        {
+          "type": "o_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "t",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "add_expr",
-          "named": true
-        },
-        {
-          "type": "and_expr",
-          "named": true
-        },
-        {
-          "type": "div_expr",
-          "named": true
-        },
-        {
-          "type": "eq_expr",
-          "named": true
-        },
-        {
-          "type": "ge_expr",
-          "named": true
-        },
-        {
-          "type": "gt_expr",
-          "named": true
-        },
-        {
-          "type": "le_expr",
+          "type": "expression",
           "named": true
         },
         {
@@ -1999,50 +1730,22 @@
           "named": true
         },
         {
-          "type": "lt_expr",
+          "type": "named_global_parameter",
           "named": true
         },
         {
-          "type": "mod_expr",
-          "named": true
-        },
-        {
-          "type": "mul_expr",
-          "named": true
-        },
-        {
-          "type": "named_parameter",
-          "named": true
-        },
-        {
-          "type": "ne_expr",
+          "type": "named_local_parameter",
           "named": true
         },
         {
           "type": "numbered_parameter",
           "named": true
-        },
-        {
-          "type": "or_expr",
-          "named": true
-        },
-        {
-          "type": "pow_expr",
-          "named": true
-        },
-        {
-          "type": "sub_expr",
-          "named": true
-        },
-        {
-          "type": "xor_expr",
-          "named": true
         }
       ]
     }
   },
   {
-    "type": "y_axis",
+    "type": "u",
     "named": true,
     "fields": {},
     "children": {
@@ -2056,12 +1759,24 @@
         {
           "type": "literal",
           "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
         }
       ]
     }
   },
   {
-    "type": "z_axis",
+    "type": "v",
     "named": true,
     "fields": {},
     "children": {
@@ -2074,6 +1789,184 @@
         },
         {
           "type": "literal",
+          "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "w",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "while",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "body",
+          "named": true
+        },
+        {
+          "type": "endwhile",
+          "named": true
+        },
+        {
+          "type": "o_indirect",
+          "named": true
+        },
+        {
+          "type": "o_name",
+          "named": true
+        },
+        {
+          "type": "o_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "x",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "y",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "z",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "literal",
+          "named": true
+        },
+        {
+          "type": "named_global_parameter",
+          "named": true
+        },
+        {
+          "type": "named_local_parameter",
+          "named": true
+        },
+        {
+          "type": "numbered_parameter",
           "named": true
         }
       ]
@@ -2081,6 +1974,10 @@
   },
   {
     "type": "#<",
+    "named": false
+  },
+  {
+    "type": "$",
     "named": false
   },
   {
@@ -2092,10 +1989,6 @@
     "named": false
   },
   {
-    "type": "**",
-    "named": false
-  },
-  {
     "type": ",",
     "named": false
   },
@@ -2104,11 +1997,23 @@
     "named": false
   },
   {
+    "type": ";",
+    "named": false
+  },
+  {
     "type": "<",
     "named": false
   },
   {
+    "type": "=",
+    "named": false
+  },
+  {
     "type": ">",
+    "named": false
+  },
+  {
+    "type": "@",
     "named": false
   },
   {
@@ -2141,6 +2046,14 @@
   },
   {
     "type": "COS",
+    "named": false
+  },
+  {
+    "type": "D",
+    "named": false
+  },
+  {
+    "type": "E",
     "named": false
   },
   {
@@ -2488,6 +2401,10 @@
     "named": false
   },
   {
+    "type": "H",
+    "named": false
+  },
+  {
     "type": "I",
     "named": false
   },
@@ -2497,6 +2414,10 @@
   },
   {
     "type": "K",
+    "named": false
+  },
+  {
+    "type": "L",
     "named": false
   },
   {
@@ -2648,6 +2569,18 @@
     "named": false
   },
   {
+    "type": "P",
+    "named": false
+  },
+  {
+    "type": "Q",
+    "named": false
+  },
+  {
+    "type": "R",
+    "named": false
+  },
+  {
     "type": "ROUND",
     "named": false
   },
@@ -2708,6 +2641,18 @@
     "named": false
   },
   {
+    "type": "^",
+    "named": false
+  },
+  {
+    "type": "add",
+    "named": true
+  },
+  {
+    "type": "and",
+    "named": true
+  },
+  {
     "type": "block_delete",
     "named": true
   },
@@ -2732,6 +2677,22 @@
     "named": false
   },
   {
+    "type": "div",
+    "named": true
+  },
+  {
+    "type": "do",
+    "named": false
+  },
+  {
+    "type": "else",
+    "named": false
+  },
+  {
+    "type": "elseif",
+    "named": false
+  },
+  {
     "type": "endif",
     "named": false
   },
@@ -2748,12 +2709,28 @@
     "named": false
   },
   {
+    "type": "eq",
+    "named": true
+  },
+  {
     "type": "filename",
+    "named": true
+  },
+  {
+    "type": "ge",
+    "named": true
+  },
+  {
+    "type": "gt",
     "named": true
   },
   {
     "type": "if",
     "named": false
+  },
+  {
+    "type": "le",
+    "named": true
   },
   {
     "type": "literal",
@@ -2776,11 +2753,31 @@
     "named": false
   },
   {
+    "type": "lt",
+    "named": true
+  },
+  {
+    "type": "mod",
+    "named": true
+  },
+  {
     "type": "msg",
     "named": false
   },
   {
-    "type": "named_parameter",
+    "type": "mul",
+    "named": true
+  },
+  {
+    "type": "named_global_parameter",
+    "named": true
+  },
+  {
+    "type": "named_local_parameter",
+    "named": true
+  },
+  {
+    "type": "ne",
     "named": true
   },
   {
@@ -2793,6 +2790,14 @@
   },
   {
     "type": "o_number",
+    "named": true
+  },
+  {
+    "type": "or",
+    "named": true
+  },
+  {
+    "type": "pow",
     "named": true
   },
   {
@@ -2822,5 +2827,9 @@
   {
     "type": "while",
     "named": false
+  },
+  {
+    "type": "xor",
+    "named": true
   }
 ]

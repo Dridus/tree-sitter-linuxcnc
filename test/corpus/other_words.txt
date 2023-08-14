@@ -8,15 +8,15 @@ F1234.56 F-1234.56 F+.12 F-.12 F0
 
 (source_file
   (line
-    (feed_rate
+    (f
       (literal))
-    (feed_rate
+    (f
       (literal))
-    (feed_rate
+    (f
       (literal))
-    (feed_rate
+    (f
       (literal))
-    (feed_rate
+    (f
       (literal))))
 
 ================================================================================
@@ -29,15 +29,15 @@ S1234.56 S-1234.56 S+.12 S-.12 S0
 
 (source_file
   (line
-    (spindle_speed
+    (s
       (literal))
-    (spindle_speed
+    (s
       (literal))
-    (spindle_speed
+    (s
       (literal))
-    (spindle_speed
+    (s
       (literal))
-    (spindle_speed
+    (s
       (literal))))
 
 ================================================================================
@@ -50,5 +50,89 @@ T123
 
 (source_file
   (line
-    (tool_number
+    (t
       (literal))))
+
+================================================================================
+basic axes
+================================================================================
+
+X123 Y-123 Z0.5
+X#1234 X#<foo> X[456]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal)))
+  (line
+    (x
+      (numbered_parameter))
+    (x
+      (named_local_parameter))
+    (x
+      (expression
+        (literal)))))
+
+================================================================================
+all axes
+================================================================================
+
+X1 Y2 Z3 A4 B5 C6 U7 V8 W9
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (x
+      (literal))
+    (y
+      (literal))
+    (z
+      (literal))
+    (a
+      (literal))
+    (b
+      (literal))
+    (c
+      (literal))
+    (u
+      (literal))
+    (v
+      (literal))
+    (w
+      (literal))))
+
+================================================================================
+polar coordinates
+================================================================================
+
+@.5 ^90
+@-123 ^0.5
+@[1] ^[2]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (polar_distance
+      (literal))
+    (polar_angle
+      (literal)))
+  (line
+    (polar_distance
+      (literal))
+    (polar_angle
+      (literal)))
+  (line
+    (polar_distance
+      (expression
+        (literal)))
+    (polar_angle
+      (expression
+        (literal)))))

@@ -70,8 +70,7 @@ simple comment
 
 (source_file
   (line
-    (msg
-      (comment_parameters))))
+    (msg)))
 
 ================================================================================
 (msg) with only parameters
@@ -84,8 +83,7 @@ simple comment
 (source_file
   (line
     (msg
-      (comment_parameters
-        (numbered_parameter)))))
+      (numbered_parameter))))
 
 ================================================================================
 (msg) with mix of parameters and text
@@ -98,8 +96,7 @@ simple comment
 (source_file
   (line
     (msg
-      (comment_parameters
-        (numbered_parameter)))))
+      (numbered_parameter))))
 
 ================================================================================
 (log) with no parameters
@@ -111,8 +108,7 @@ simple comment
 
 (source_file
   (line
-    (log
-      (comment_parameters))))
+    (log)))
 
 ================================================================================
 (log) with only parameters
@@ -125,8 +121,7 @@ simple comment
 (source_file
   (line
     (log
-      (comment_parameters
-        (numbered_parameter)))))
+      (numbered_parameter))))
 
 ================================================================================
 (log) with mix of parameters and text
@@ -139,8 +134,7 @@ simple comment
 (source_file
   (line
     (log
-      (comment_parameters
-        (numbered_parameter)))))
+      (numbered_parameter))))
 
 ================================================================================
 (debug) with no parameters
@@ -152,8 +146,7 @@ simple comment
 
 (source_file
   (line
-    (debug
-      (comment_parameters))))
+    (debug)))
 
 ================================================================================
 (debug) with only parameters
@@ -166,8 +159,7 @@ simple comment
 (source_file
   (line
     (debug
-      (comment_parameters
-        (numbered_parameter)))))
+      (numbered_parameter))))
 
 ================================================================================
 (debug) with mix of parameters and text
@@ -180,8 +172,7 @@ simple comment
 (source_file
   (line
     (debug
-      (comment_parameters
-        (numbered_parameter)))))
+      (numbered_parameter))))
 
 ================================================================================
 (print) with no parameters
@@ -193,8 +184,7 @@ simple comment
 
 (source_file
   (line
-    (print
-      (comment_parameters))))
+    (print)))
 
 ================================================================================
 (print) with only parameters
@@ -207,8 +197,7 @@ simple comment
 (source_file
   (line
     (print
-      (comment_parameters
-        (numbered_parameter)))))
+      (numbered_parameter))))
 
 ================================================================================
 (print) with mix of parameters and text
@@ -221,8 +210,7 @@ simple comment
 (source_file
   (line
     (print
-      (comment_parameters
-        (numbered_parameter)))))
+      (numbered_parameter))))
 
 ================================================================================
 inline comment between words

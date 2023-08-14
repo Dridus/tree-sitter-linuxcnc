@@ -91,61 +91,92 @@ G0 X+123 Y+5.99 Z+.2 I123 J123 K123 U123 V123 W123
 (source_file
   (line
     (g)
-    (x_axis
+    (x
       (literal))
-    (y_axis
+    (y
       (literal))
-    (z_axis
+    (z
       (literal))
-    (i_axis
+    (i
       (literal))
-    (j_axis
+    (j
       (literal))
-    (k_axis
+    (k
       (literal))
-    (u_axis
+    (u
       (literal))
-    (v_axis
+    (v
       (literal))
-    (w_axis
+    (w
       (literal)))
   (line
     (g)
-    (x_axis
+    (x
       (literal))
-    (y_axis
+    (y
       (literal))
-    (z_axis
+    (z
       (literal))
-    (i_axis
+    (i
       (literal))
-    (j_axis
+    (j
       (literal))
-    (k_axis
+    (k
       (literal))
-    (u_axis
+    (u
       (literal))
-    (v_axis
+    (v
       (literal))
-    (w_axis
+    (w
       (literal)))
   (line
     (g)
-    (x_axis
+    (x
       (literal))
-    (y_axis
+    (y
       (literal))
-    (z_axis
+    (z
       (literal))
-    (i_axis
+    (i
       (literal))
-    (j_axis
+    (j
       (literal))
-    (k_axis
+    (k
       (literal))
-    (u_axis
+    (u
       (literal))
-    (v_axis
+    (v
       (literal))
-    (w_axis
+    (w
       (literal))))
+
+================================================================================
+parameter assignment
+================================================================================
+
+#0 = 123
+#<foo> = 456
+#<bar> = [#<foo>]
+#<_baz> = [789]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (assignment
+      (numbered_parameter)
+      (literal)))
+  (line
+    (assignment
+      (named_local_parameter)
+      (literal)))
+  (line
+    (assignment
+      (named_local_parameter)
+      (expression
+        (named_local_parameter))))
+  (line
+    (assignment
+      (named_global_parameter)
+      (expression
+        (literal)))))

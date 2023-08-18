@@ -1,0 +1,59 @@
+================================================================================
+ex 1
+================================================================================
+
+o<test> return [[#<_task> GT 0] and [#<_hal[motion.probe-input]> NE 0]]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (return
+      (o_name)
+      (expression
+        (binary_expr
+          left: (expression
+            (binary_expr
+              left: (named_global_parameter)
+              right: (literal)))
+          right: (expression
+            (binary_expr
+              left: (named_global_parameter)
+              right: (literal))))))))
+
+================================================================================
+ex 2
+================================================================================
+
+o<safety_check> if [[#<_task> GT 0] and [#<_hal[motion.probe-input]> NE 0]]
+  (msg, probe already touching, cannot start a tool change!)
+  o<manual_change> return [-1] (indicate safety check failure to epilog)
+o<safety_check> endif
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line
+    (if
+      (o_name)
+      condition: (expression
+        (binary_expr
+          left: (expression
+            (binary_expr
+              left: (named_global_parameter)
+              right: (literal)))
+          right: (expression
+            (binary_expr
+              left: (named_global_parameter)
+              right: (literal)))))
+      (body
+        (line
+          (control_comment))
+        (line
+          (return
+            (o_name)
+            (expression
+              (literal)))
+          (comment)))
+      (endif
+        (o_name)))))

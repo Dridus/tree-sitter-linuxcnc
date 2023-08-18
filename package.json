@@ -1,7 +1,7 @@
 {
-  "name": "tree-sitter-LINUXCNC-GCODE",
+  "name": "tree-sitter-linuxcnc-gcode",
   "version": "0.0.1",
-  "description": "LINUXCNC-GCODE grammar for tree-sitter",
+  "description": "linuxcnc-gcode grammar for tree-sitter",
   "main": "bindings/node",
   "keywords": [
     "parsing",
@@ -15,5 +15,13 @@
   },
   "scripts": {
     "test": "tree-sitter test"
-  }
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.linuxcnc-gcode",
+      "file-types": [
+        "ngc"
+      ]
+    }
+  ]
 }

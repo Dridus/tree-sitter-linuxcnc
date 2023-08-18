@@ -1,9 +1,9 @@
-function kw(keyword) {
-  return alias(caseInsensitiveRe(keyword), keyword);
+function kw(keyword, name) {
+  return alias(caseInsensitiveRe(keyword), name || keyword);
 }
 
 function kws(keywords) {
-  return choice(...keywords.split(" ").map(kw));
+  return choice(...keywords.split(" ").map((w) => kw(w)));
 }
 
 function caseInsensitiveRe(word) {
@@ -24,25 +24,42 @@ function caseInsensitiveRe(word) {
 }
 
 function controlCommentWithArg(keyword, arg) {
-  return seq("(", kw(keyword), ",", field("arg", alias(/[^)]*/, arg)), ")");
+  return seq(
+    "(",
+    field("control", kw(keyword)),
+    ",",
+    field("arg", alias(/[^)]*/, arg)),
+    ")"
+  );
 }
 
 function controlComment(keyword) {
-  return seq("(", kw(keyword), ")");
+  return seq(
+    "(",
+    field("control", kw(keyword)),
+    ")"
+  );
 }
 
 function controlCommentWithMessage($, keyword) {
-  return seq("(", kw(keyword), ",", optional($._comment_parameters), ")");
+  return seq(
+    "(",
+    field("control", kw(keyword)),
+    ",",
+    optional($._comment_parameters),
+    ")"
+  );
 }
 
-const DECIMAL_RE = /[-+]?(\d+([.]\d+)?|[.]\d+)/;
+const NONNEGATIVE_DECIMAL_RE = /([.]\d+|\d+([.]\d+)?)/;
 
 function valueWords($, letters) {
   return choice(
     ...letters.split("").map(letter =>
       alias(
-        seq(kw(letter), $._value),
-        $[letter.toLowerCase()]
+        // "E" seems to have some special meaning to treesitter, so avoid using it
+        seq(field("word", kw(letter, `letter_${letter}`)), $._value),
+        $.value_word
       )
     )
   );
@@ -50,8 +67,8 @@ function valueWords($, letters) {
 
 function valueWord($, tok, name) {
   return alias(
-    seq(alias(tok, tok), $._value),
-    $[name]
+    seq(field("word", alias(tok, tok)), $._value),
+    $.value_word
   )
 }
 
@@ -106,7 +123,7 @@ module.exports = grammar({
     ),
 
     _wordish: $ => choice(
-      valueWords($, "ABCDEFHIJKULPQRSTVWXYZ"),
+      valueWords($, "ABCDEFHIJKLPQRSTUVWXYZ"),
       valueWord($, "$", "spindle"),
       $.polar_distance,
       $.polar_angle,
@@ -119,7 +136,11 @@ module.exports = grammar({
 
     polar_distance: $ => seq("@", $._value),
     polar_angle: $ => seq("^", $._value),
-    assignment: $ => seq($._parameter, "=", $._value),
+    assignment: $ => seq(
+      field("left", $._parameter),
+      "=",
+      field("right", $._value)
+    ),
 
     g: $ => choice(
       kws("G0 G1 G2 G3 G4 G5 G5.1 G5.2 G5.3 G7 G8 G10 G17 G17.1 G18 G18.1 G19 G19.1 G20 G21"),
@@ -221,9 +242,10 @@ module.exports = grammar({
     "continue": $ => oLine($, kw("continue")),
 
     _value: $ => choice(
-      $.literal,
-      $._parameter,
-      $.expression
+      prec(8, $._sign),
+      prec(8, $.expression),
+      prec(7, $.literal),
+      prec(7, $._parameter),
       // LinuxCNC docs claim a bare function can be used here but that seems a tad too spooky,
       // so skip on it for now
     ),
@@ -231,26 +253,30 @@ module.exports = grammar({
     expression: $ => seq("[", $._expr, "]"),
 
     _expr: $ => choice(
-      prec(7, $._parameter),
-      prec(7, $.literal),
+      $._value,
       $.atan_call_expr,
       $.func_call_expr,
       $.binary_expr,
     ),
 
-    _parameter: $ => choice(
-      seq("#<", choice(
-        alias(/_[^>]+/, $.named_global_parameter),
-        alias(/[^_>][^>]*/, $.named_local_parameter),
-      ), ">"),
-      alias(/#\d+/, $.numbered_parameter),
+    _parameter: $ => seq(
+      "#",
+      choice(
+        seq("<", choice(
+          alias(/_[^>]+/, $.named_global_parameter),
+          alias(/[^_>][^>]*/, $.named_local_parameter),
+        ), ">"),
+        alias(/\d+/, $.numbered_parameter)
+      )
     ),
 
-    literal: $ => DECIMAL_RE,
+    _sign: $ => seq(alias(/[+-]/, "sign"), $._value),
+
+    literal: $ => NONNEGATIVE_DECIMAL_RE,
 
     binary_expr: $ => {
       function kwop(keyword) {
-        return alias(caseInsensitiveRe(keyword), $[keyword]);
+        return alias(caseInsensitiveRe(keyword), keyword);
       }
 
       function kwops(keywords, prec) {
@@ -258,12 +284,12 @@ module.exports = grammar({
       }
 
       const table = [
-        [alias("**", $.pow), 6],
-        [alias("*", $.mul), 5],
-        [alias("/", $.div), 5],
+        [alias("**", "**"), 6],
+        [alias("*", "*"), 5],
+        [alias("/", "/"), 5],
         [kwop("mod"), 5],
-        [alias("+", $.add), 4],
-        [alias("-", $.sub), 4],
+        [alias("+", "+"), 4],
+        [alias("-", "-"), 4],
         ...kwops("eq ne gt ge lt le", 3),
         ...kwops("and or xor", 2)
       ];
@@ -290,27 +316,31 @@ module.exports = grammar({
     ),
 
     _comment: $ => choice(
-      $.msg,
-      $.probeopen,
-      $.probeclose,
-      $.logopen,
-      $.logappend,
-      $.logclose,
-      $.log,
-      $.debug,
-      $.print,
+      $.control_comment,
       prec(-1, $.comment),
     ),
 
-    probeopen: $ => controlCommentWithArg("probeopen", $.filename),
-    probeclose: $ => controlComment("probeclose"),
-    logopen: $ => controlCommentWithArg("logopen", $.filename),
-    logappend: $ => controlCommentWithArg("logappend", $.filename),
-    logclose: $ => controlComment("logclose"),
-    msg: $ => controlCommentWithMessage($, "msg"),
-    log: $ => controlCommentWithMessage($, "log"),
-    debug: $ => controlCommentWithMessage($, "debug"),
-    print: $ => controlCommentWithMessage($, "print"),
+    control_comment: $ => choice(
+      $._msg,
+      $._probeopen,
+      $._probeclose,
+      $._logopen,
+      $._logappend,
+      $._logclose,
+      $._log,
+      $._debug,
+      $._print,
+    ),
+
+    _probeopen: $ => controlCommentWithArg("probeopen", $.filename),
+    _probeclose: $ => controlComment("probeclose"),
+    _logopen: $ => controlCommentWithArg("logopen", $.filename),
+    _logappend: $ => controlCommentWithArg("logappend", $.filename),
+    _logclose: $ => controlComment("logclose"),
+    _msg: $ => controlCommentWithMessage($, "msg"),
+    _log: $ => controlCommentWithMessage($, "log"),
+    _debug: $ => controlCommentWithMessage($, "debug"),
+    _print: $ => controlCommentWithMessage($, "print"),
 
     comment: $ => choice(
       seq("(", token(prec(-1, /[^)]*/)), ")"),
@@ -320,7 +350,7 @@ module.exports = grammar({
     _comment_parameters: $ => repeat1(
       choice(
         $._parameter,
-        /[^)#]+/,
+        alias(/[^)#]+/, "text"),
       ),
     ),
   }

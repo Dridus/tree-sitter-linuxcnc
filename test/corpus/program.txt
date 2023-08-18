@@ -91,63 +91,63 @@ G0 X+123 Y+5.99 Z+.2 I123 J123 K123 U123 V123 W123
 (source_file
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (i
+    (value_word
       (literal))
-    (j
+    (value_word
       (literal))
-    (k
+    (value_word
       (literal))
-    (u
+    (value_word
       (literal))
-    (v
+    (value_word
       (literal))
-    (w
+    (value_word
       (literal)))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (i
+    (value_word
       (literal))
-    (j
+    (value_word
       (literal))
-    (k
+    (value_word
       (literal))
-    (u
+    (value_word
       (literal))
-    (v
+    (value_word
       (literal))
-    (w
+    (value_word
       (literal)))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (i
+    (value_word
       (literal))
-    (j
+    (value_word
       (literal))
-    (k
+    (value_word
       (literal))
-    (u
+    (value_word
       (literal))
-    (v
+    (value_word
       (literal))
-    (w
+    (value_word
       (literal))))
 
 ================================================================================

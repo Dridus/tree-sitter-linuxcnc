@@ -20,7 +20,7 @@ simple comment
 
 (source_file
   (line
-    (logclose)))
+    (control_comment)))
 
 ================================================================================
 (logopen)
@@ -32,7 +32,7 @@ simple comment
 
 (source_file
   (line
-    (logopen
+    (control_comment
       (filename))))
 
 ================================================================================
@@ -45,7 +45,7 @@ simple comment
 
 (source_file
   (line
-    (probeopen
+    (control_comment
       (filename))))
 
 ================================================================================
@@ -58,7 +58,7 @@ simple comment
 
 (source_file
   (line
-    (probeclose)))
+    (control_comment)))
 
 ================================================================================
 (msg) with no parameters
@@ -70,7 +70,7 @@ simple comment
 
 (source_file
   (line
-    (msg)))
+    (control_comment)))
 
 ================================================================================
 (msg) with only parameters
@@ -82,7 +82,7 @@ simple comment
 
 (source_file
   (line
-    (msg
+    (control_comment
       (numbered_parameter))))
 
 ================================================================================
@@ -95,7 +95,7 @@ simple comment
 
 (source_file
   (line
-    (msg
+    (control_comment
       (numbered_parameter))))
 
 ================================================================================
@@ -108,7 +108,7 @@ simple comment
 
 (source_file
   (line
-    (log)))
+    (control_comment)))
 
 ================================================================================
 (log) with only parameters
@@ -120,7 +120,7 @@ simple comment
 
 (source_file
   (line
-    (log
+    (control_comment
       (numbered_parameter))))
 
 ================================================================================
@@ -133,7 +133,7 @@ simple comment
 
 (source_file
   (line
-    (log
+    (control_comment
       (numbered_parameter))))
 
 ================================================================================
@@ -146,7 +146,7 @@ simple comment
 
 (source_file
   (line
-    (debug)))
+    (control_comment)))
 
 ================================================================================
 (debug) with only parameters
@@ -158,7 +158,7 @@ simple comment
 
 (source_file
   (line
-    (debug
+    (control_comment
       (numbered_parameter))))
 
 ================================================================================
@@ -171,7 +171,7 @@ simple comment
 
 (source_file
   (line
-    (debug
+    (control_comment
       (numbered_parameter))))
 
 ================================================================================
@@ -184,7 +184,7 @@ simple comment
 
 (source_file
   (line
-    (print)))
+    (control_comment)))
 
 ================================================================================
 (print) with only parameters
@@ -196,7 +196,7 @@ simple comment
 
 (source_file
   (line
-    (print
+    (control_comment
       (numbered_parameter))))
 
 ================================================================================
@@ -209,7 +209,7 @@ simple comment
 
 (source_file
   (line
-    (print
+    (control_comment
       (numbered_parameter))))
 
 ================================================================================

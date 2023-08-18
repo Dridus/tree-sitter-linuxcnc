@@ -8,15 +8,15 @@ F1234.56 F-1234.56 F+.12 F-.12 F0
 
 (source_file
   (line
-    (f
+    (value_word
       (literal))
-    (f
+    (value_word
       (literal))
-    (f
+    (value_word
       (literal))
-    (f
+    (value_word
       (literal))
-    (f
+    (value_word
       (literal))))
 
 ================================================================================
@@ -29,15 +29,15 @@ S1234.56 S-1234.56 S+.12 S-.12 S0
 
 (source_file
   (line
-    (s
+    (value_word
       (literal))
-    (s
+    (value_word
       (literal))
-    (s
+    (value_word
       (literal))
-    (s
+    (value_word
       (literal))
-    (s
+    (value_word
       (literal))))
 
 ================================================================================
@@ -50,7 +50,7 @@ T123
 
 (source_file
   (line
-    (t
+    (value_word
       (literal))))
 
 ================================================================================
@@ -64,18 +64,18 @@ X#1234 X#<foo> X[456]
 
 (source_file
   (line
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal)))
   (line
-    (x
+    (value_word
       (numbered_parameter))
-    (x
+    (value_word
       (named_local_parameter))
-    (x
+    (value_word
       (expression
         (literal)))))
 
@@ -89,23 +89,23 @@ X1 Y2 Z3 A4 B5 C6 U7 V8 W9
 
 (source_file
   (line
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (a
+    (value_word
       (literal))
-    (b
+    (value_word
       (literal))
-    (c
+    (value_word
       (literal))
-    (u
+    (value_word
       (literal))
-    (v
+    (value_word
       (literal))
-    (w
+    (value_word
       (literal))))
 
 ================================================================================

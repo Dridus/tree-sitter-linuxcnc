@@ -10,15 +10,15 @@ X[#<_abc>]
 
 (source_file
   (line
-    (x
+    (value_word
       (expression
         (numbered_parameter))))
   (line
-    (x
+    (value_word
       (expression
         (named_local_parameter))))
   (line
-    (x
+    (value_word
       (expression
         (named_global_parameter)))))
 
@@ -32,41 +32,35 @@ X[1+1] X[1-1] X[2*2] X[2/2] X[2 MOD 2] X[2 mod 2]
 
 (source_file
   (line
-    (x
+    (value_word
       (expression
         (binary_expr
           left: (literal)
-          operator: (add)
           right: (literal))))
-    (x
+    (value_word
       (expression
         (binary_expr
           left: (literal)
-          operator: (sub)
           right: (literal))))
-    (x
+    (value_word
       (expression
         (binary_expr
           left: (literal)
-          operator: (mul)
           right: (literal))))
-    (x
+    (value_word
       (expression
         (binary_expr
           left: (literal)
-          operator: (div)
           right: (literal))))
-    (x
+    (value_word
       (expression
         (binary_expr
           left: (literal)
-          operator: (mod)
           right: (literal))))
-    (x
+    (value_word
       (expression
         (binary_expr
           left: (literal)
-          operator: (mod)
           right: (literal))))))
 
 ================================================================================
@@ -83,40 +77,33 @@ X[1 and 2 or 3]
 
 (source_file
   (line
-    (x
+    (value_word
       (expression
         (binary_expr
           left: (binary_expr
             left: (literal)
-            operator: (pow)
             right: (literal))
-          operator: (pow)
           right: (literal)))))
   (line
-    (x
+    (value_word
       (expression
         (binary_expr
           left: (binary_expr
             left: (literal)
-            operator: (add)
             right: (literal))
-          operator: (sub)
           right: (literal)))))
   (line
-    (x
+    (value_word
       (expression
         (binary_expr
           left: (binary_expr
             left: (binary_expr
               left: (literal)
-              operator: (mul)
               right: (literal))
-            operator: (div)
             right: (literal))
-          operator: (mod)
           right: (literal)))))
   (line
-    (x
+    (value_word
       (expression
         (binary_expr
           left: (binary_expr
@@ -125,27 +112,19 @@ X[1 and 2 or 3]
                 left: (binary_expr
                   left: (binary_expr
                     left: (literal)
-                    operator: (eq)
                     right: (literal))
-                  operator: (ne)
                   right: (literal))
-                operator: (gt)
                 right: (literal))
-              operator: (ge)
               right: (literal))
-            operator: (lt)
             right: (literal))
-          operator: (le)
           right: (literal)))))
   (line
-    (x
+    (value_word
       (expression
         (binary_expr
           left: (binary_expr
             left: (literal)
-            operator: (and)
             right: (literal))
-          operator: (or)
           right: (literal))))))
 
 ================================================================================
@@ -159,39 +138,30 @@ X[1 eq 2 and 3 ne 4]
 
 (source_file
   (line
-    (x
+    (value_word
       (expression
         (binary_expr
           left: (binary_expr
             left: (literal)
-            operator: (add)
             right: (binary_expr
               left: (binary_expr
                 left: (literal)
-                operator: (div)
                 right: (literal))
-              operator: (mod)
               right: (literal)))
-          operator: (sub)
           right: (binary_expr
             left: (literal)
-            operator: (mul)
             right: (binary_expr
               left: (literal)
-              operator: (pow)
               right: (literal)))))))
   (line
-    (x
+    (value_word
       (expression
         (binary_expr
           left: (binary_expr
             left: (literal)
-            operator: (eq)
             right: (literal))
-          operator: (and)
           right: (binary_expr
             left: (literal)
-            operator: (ne)
             right: (literal)))))))
 
 ================================================================================
@@ -205,68 +175,68 @@ X[ROUND[8]] X[LN[9]] X[SIN[10]] X[SQRT[11]] X[TAN[12]] X[EXISTS[13]]
 
 (source_file
   (line
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
             (literal)))))
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
             (literal)))))
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
             (literal)))))
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
             (literal)))))
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
             (literal)))))
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
             (literal)))))
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
             (literal))))))
   (line
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
             (literal)))))
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
             (literal)))))
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
             (literal)))))
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
             (literal)))))
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
             (literal)))))
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
@@ -282,15 +252,14 @@ X[ABS[1+2]] X[ABS[ACOS[3]]]
 
 (source_file
   (line
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
             (binary_expr
               left: (literal)
-              operator: (add)
               right: (literal))))))
-    (x
+    (value_word
       (expression
         (func_call_expr
           (expression
@@ -309,7 +278,7 @@ X[ATAN[1/2]/[3/4]]
 
 (source_file
   (line
-    (x
+    (value_word
       (expression
         (atan_call_expr
           (expression
@@ -317,16 +286,14 @@ X[ATAN[1/2]/[3/4]]
           (expression
             (literal))))))
   (line
-    (x
+    (value_word
       (expression
         (atan_call_expr
           (expression
             (binary_expr
               (literal)
-              (div)
               (literal)))
           (expression
             (binary_expr
               (literal)
-              (div)
               (literal))))))))

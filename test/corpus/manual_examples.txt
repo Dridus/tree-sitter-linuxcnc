@@ -26,15 +26,14 @@ o100 call [0.0] [0.0] [#<_inside_cutout>-#<_endmill_dia>] [#<_Zcut>] [#<_feedrat
 (source_file
   (line
     (assignment
-      (named_global_parameter)
-      (literal)))
+      left: (named_global_parameter)
+      right: (literal)))
   (line
     (assignment
-      (named_global_parameter)
-      (expression
+      left: (named_global_parameter)
+      right: (expression
         (binary_expr
           left: (named_global_parameter)
-          operator: (div)
           right: (literal)))))
   (line
     (call
@@ -46,7 +45,6 @@ o100 call [0.0] [0.0] [#<_inside_cutout>-#<_endmill_dia>] [#<_Zcut>] [#<_feedrat
       (expression
         (binary_expr
           left: (named_global_parameter)
-          operator: (sub)
           right: (named_global_parameter)))
       (expression
         (named_global_parameter))
@@ -76,16 +74,16 @@ o100 endif
             (named_global_parameter))))
       (body
         (line
-          (debug
+          (control_comment
             (named_global_parameter)))
         (line
-          (x
+          (value_word
             (literal))))
       (else
         (o_number)
         (body
           (line
-            (debug))))
+            (control_comment))))
       (endif
         (o_number)))))
 
@@ -99,7 +97,7 @@ G code overview 4 ex 2
 
 (source_file
   (line
-    (debug
+    (control_comment
       (named_global_parameter))))
 
 ================================================================================
@@ -124,13 +122,13 @@ o100 endif
             (named_global_parameter))))
       (body
         (line
-          (debug
+          (control_comment
             (named_global_parameter))))
       (else
         (o_number)
         (body
           (line
-            (debug))))
+            (control_comment))))
       (endif
         (o_number)))))
 
@@ -162,13 +160,13 @@ o<test> endsub
                   (named_global_parameter))))
             (body
               (line
-                (debug
+                (control_comment
                   (named_global_parameter))))
             (else
               (o_number)
               (body
                 (line
-                  (debug))))
+                  (control_comment))))
             (endif
               (o_number)))))
       (endsub
@@ -214,7 +212,7 @@ G90 G0 X0 Y0 M2
 
 (source_file
   (line
-    (f
+    (value_word
       (literal))
     (g)
     (polar_distance
@@ -245,9 +243,9 @@ G90 G0 X0 Y0 M2
   (line
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
     (m)))
 
@@ -266,7 +264,7 @@ G90 G0 X0 Y0 M2
 
 (source_file
   (line
-    (f
+    (value_word
       (literal))
     (g)
     (polar_distance
@@ -289,9 +287,9 @@ G90 G0 X0 Y0 M2
   (line
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
     (m)))
 
@@ -309,15 +307,15 @@ M2 ; End of program.
   (line
     (g)
     (comment)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal)))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
     (comment))
   (line
@@ -334,7 +332,7 @@ G code overview 15
 
 (source_file
   (line
-    (msg)))
+    (control_comment)))
 
 ================================================================================
 G code overview 20
@@ -347,10 +345,10 @@ G code overview 20
 
 (source_file
   (line
-    (print
+    (control_comment
       (named_global_parameter)))
   (line
-    (print
+    (control_comment
       (numbered_parameter))))
 
 ================================================================================
@@ -388,9 +386,9 @@ M2 (end program)
     (comment))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
     (comment))
   (line
@@ -415,21 +413,21 @@ M2 (end program)
     (comment))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (f
-      (literal))
-    (comment))
-  (line
-    (z
+    (value_word
       (literal))
     (comment))
   (line
-    (z
+    (value_word
       (literal))
-    (f
+    (comment))
+  (line
+    (value_word
+      (literal))
+    (value_word
       (literal))
     (comment))
   (line
@@ -448,19 +446,19 @@ G2 X1 Y1 I1 F10 (clockwise arc in the XY plane)
 (source_file
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal)))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (i
+    (value_word
       (literal))
-    (f
+    (value_word
       (literal))
     (comment)))
 
@@ -477,34 +475,34 @@ G3 X0 Y0 I1 J-0.5 F25 (counterclockwise arc in the XY plane)
 (source_file
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal)))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (i
+    (value_word
       (literal))
-    (j
+    (value_word
       (literal))
-    (f
+    (value_word
       (literal))
     (comment))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (i
+    (value_word
       (literal))
-    (j
+    (value_word
       (literal))
-    (f
+    (value_word
       (literal))
     (comment)))
 
@@ -520,24 +518,24 @@ G17 G2 X10 Y16 I3 J4 Z-1 (helix arc with Z added)
 (source_file
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal)))
   (line
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (i
+    (value_word
       (literal))
-    (j
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
     (comment)))
 
@@ -553,27 +551,27 @@ G2 X0 Y1 Z-1 I1 J0.5 P2 F25
 (source_file
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal)))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (i
+    (value_word
       (literal))
-    (j
+    (value_word
       (literal))
-    (p
+    (value_word
       (literal))
-    (f
+    (value_word
       (literal))))
 
 ================================================================================
@@ -588,13 +586,13 @@ G17 G2 X10 Y15 R20 Z5 (radius format with arc)
   (line
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (r
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
     (comment)))
 
@@ -609,7 +607,7 @@ G4 P0.5 (wait for 0.5 seconds before proceeding)
 (source_file
   (line
     (g)
-    (p
+    (value_word
       (literal))
     (comment)))
 
@@ -629,23 +627,23 @@ G5 I0 J3 P0 Q-3 X1 Y1
     (g))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal)))
   (line
     (g)
-    (i
+    (value_word
       (literal))
-    (j
+    (value_word
       (literal))
-    (p
+    (value_word
       (literal))
-    (q
+    (value_word
       (literal))
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))))
 
 ================================================================================
@@ -659,13 +657,13 @@ G5 P0 Q-3 X2 Y2
 (source_file
   (line
     (g)
-    (p
+    (value_word
       (literal))
-    (q
+    (value_word
       (literal))
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))))
 
 ================================================================================
@@ -684,17 +682,17 @@ G5.1 X2 I2 J-8
     (g))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal)))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (i
+    (value_word
       (literal))
-    (j
+    (value_word
       (literal))))
 
 ================================================================================
@@ -721,48 +719,48 @@ M2
 (source_file
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
     (comment))
   (line
-    (f
+    (value_word
       (literal))
     (comment))
   (line
     (g)
-    (p
+    (value_word
       (literal))
-    (l
+    (value_word
       (literal)))
   (line
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (p
+    (value_word
       (literal)))
   (line
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (p
+    (value_word
       (literal)))
   (line
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (p
+    (value_word
       (literal)))
   (line
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (p
+    (value_word
       (literal)))
   (line
     (g))
@@ -770,24 +768,24 @@ M2
     (comment))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal)))
   (line
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal)))
   (line
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal)))
   (line
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal)))
   (line
     (m)))
@@ -804,22 +802,22 @@ G10 L1 P2 R0.015 Q3 (lathe example setting tool 2 radius to 0.015 and orientatio
 (source_file
   (line
     (g)
-    (l
+    (value_word
       (literal))
-    (p
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
     (comment))
   (line
     (g)
-    (l
+    (value_word
       (literal))
-    (p
+    (value_word
       (literal))
-    (r
+    (value_word
       (literal))
-    (q
+    (value_word
       (literal))
     (comment)))
 
@@ -836,25 +834,25 @@ G10 L2 P1 X0 Y0 Z0 (clear offsets for X,Y & Z axes in coordinate system 1)
 (source_file
   (line
     (g)
-    (l
+    (value_word
       (literal))
-    (p
+    (value_word
       (literal))
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal)))
   (line
     (g)
-    (l
+    (value_word
       (literal))
-    (p
+    (value_word
       (literal))
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
     (comment)))
 
@@ -871,18 +869,18 @@ M2 (end program)
 
 (source_file
   (line
-    (t
+    (value_word
       (literal))
     (m)
     (g)
     (comment))
   (line
     (g)
-    (l
+    (value_word
       (literal))
-    (p
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
     (comment))
   (line
@@ -903,11 +901,11 @@ G10 L20 P1 X1.5 (set the X axis current location in coordinate system 1 to 1.5)
 (source_file
   (line
     (g)
-    (l
+    (value_word
       (literal))
-    (p
+    (value_word
       (literal))
-    (x
+    (value_word
       (literal))
     (comment)))
 
@@ -922,7 +920,7 @@ G28 Z2.5 (rapid to Z2.5 then to Z location specified in #5163)
 (source_file
   (line
     (g)
-    (z
+    (value_word
       (literal))
     (comment)))
 
@@ -937,7 +935,7 @@ G30 Z2.5 (rapid to Z2.5 then to the Z location specified in #5183)
 (source_file
   (line
     (g)
-    (z
+    (value_word
       (literal))
     (comment)))
 
@@ -961,30 +959,30 @@ M2 (end program)
     (comment))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
     (comment))
   (line
-    (s
+    (value_word
       (literal))
     (m)
     (comment))
   (line
     (g)
-    (z
+    (value_word
       (literal))
-    (k
+    (value_word
       (literal))
     (comment))
   (line
     (g)
-    (x
+    (value_word
       (literal))
     (comment))
   (line
-    (z
+    (value_word
       (literal))
     (comment))
   (line
@@ -1009,23 +1007,23 @@ M2 (end program)
     (comment))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
     (comment))
   (line
-    (s
+    (value_word
       (literal))
     (m)
     (comment))
   (line
     (g)
-    (z
+    (value_word
       (literal))
-    (k
+    (value_word
       (literal))
     (comment))
   (line
@@ -1051,7 +1049,7 @@ M2 (end program)
     (comment))
   (line
     (g)
-    (x
+    (value_word
       (literal))
     (comment))
   (line
@@ -1069,7 +1067,7 @@ G43 H1 (set tool offsets using the values from tool 1 in the tool table)
 (source_file
   (line
     (g)
-    (h
+    (value_word
       (literal))
     (comment)))
 
@@ -1089,14 +1087,14 @@ M2 (end program)
     (g)
     (comment))
   (line
-    (t
+    (value_word
       (literal))
     (m)
     (g)
     (comment))
   (line
     (g)
-    (z
+    (value_word
       (literal))
     (comment))
   (line
@@ -1120,7 +1118,7 @@ M2 (end program)
     (g)
     (comment))
   (line
-    (t
+    (value_word
       (literal))
     (m)
     (comment))
@@ -1129,7 +1127,7 @@ M2 (end program)
     (comment))
   (line
     (g)
-    (h
+    (value_word
       (literal))
     (comment))
   (line
@@ -1149,16 +1147,16 @@ G53 X2 (rapid linear move to absolute coordinate X2)
   (line
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
     (comment))
   (line
     (g)
-    (x
+    (value_word
       (literal))
     (comment)))
 
@@ -1173,7 +1171,7 @@ G64 P0.015 (set path following to be within 0.015 of the actual path)
 (source_file
   (line
     (g)
-    (p
+    (value_word
       (literal))
     (comment)))
 
@@ -1189,27 +1187,27 @@ G76 P0.05 Z-1 I-.075 J0.008 K0.045 Q29.5 L2 E0.045
 (source_file
   (line
     (g)
-    (z
+    (value_word
       (literal))
-    (x
+    (value_word
       (literal)))
   (line
     (g)
-    (p
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (i
+    (value_word
       (literal))
-    (j
+    (value_word
       (literal))
-    (k
+    (value_word
       (literal))
-    (q
+    (value_word
       (literal))
-    (l
+    (value_word
       (literal))
-    (e
+    (value_word
       (literal))))
 
 ================================================================================
@@ -1244,63 +1242,63 @@ N1100 M2 (program end)
     (block_number)
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
-      (literal))
-    (comment))
-  (line
-    (block_number)
-    (g)
-    (f
-      (literal))
-    (x
-      (literal))
-    (g)
-    (p
-      (literal)))
-  (line
-    (block_number)
-    (g)
-    (g)
-    (x
-      (literal))
-    (y
-      (literal))
-    (z
-      (literal))
-    (r
-      (literal))
-    (l
+    (value_word
       (literal))
     (comment))
   (line
     (block_number)
     (g)
-    (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
+      (literal))
+    (g)
+    (value_word
       (literal)))
   (line
     (block_number)
-    (z
+    (g)
+    (g)
+    (value_word
+      (literal))
+    (value_word
+      (literal))
+    (value_word
+      (literal))
+    (value_word
+      (literal))
+    (value_word
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (g)
+    (g)
+    (value_word
+      (literal))
+    (value_word
+      (literal)))
+  (line
+    (block_number)
+    (value_word
       (literal)))
   (line
     (block_number)
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (r
+    (value_word
       (literal))
-    (l
+    (value_word
       (literal))
     (comment))
   (line
@@ -1315,85 +1313,85 @@ N1100 M2 (program end)
     (block_number)
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
     (comment))
   (line
     (block_number)
     (g)
-    (f
+    (value_word
       (literal))
-    (x
+    (value_word
       (literal))
     (g)
-    (p
+    (value_word
       (literal)))
   (line
     (block_number)
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (r
+    (value_word
       (literal))
-    (l
-      (literal))
-    (comment))
-  (line
-    (block_number)
-    (x
-      (literal))
-    (y
-      (literal))
-    (r
-      (literal))
-    (l
+    (value_word
       (literal))
     (comment))
   (line
     (block_number)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (l
+    (value_word
       (literal))
-    (comment))
-  (line
-    (block_number)
-    (x
-      (literal))
-    (y
-      (literal))
-    (l
+    (value_word
       (literal))
     (comment))
   (line
     (block_number)
-    (g)
+    (value_word
+      (literal))
+    (value_word
+      (literal))
+    (value_word
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (value_word
+      (literal))
+    (value_word
+      (literal))
+    (value_word
+      (literal))
     (comment))
   (line
     (block_number)
     (g)
+    (comment))
+  (line
+    (block_number)
     (g)
-    (x
+    (g)
+    (value_word
       (literal))
     (comment))
   (line
     (block_number)
-    (y
+    (value_word
       (literal)))
   (line
     (block_number)
-    (z
+    (value_word
       (literal)))
   (line
     (block_number)
@@ -1433,108 +1431,108 @@ N240 M2 (program end)
   (line
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (r
-      (literal))
-    (comment))
-  (line
-    (g)
-    (comment))
-  (line
-    (g)
-    (x
-      (literal))
-    (y
-      (literal))
-    (z
+    (value_word
       (literal))
     (comment))
   (line
     (g)
+    (comment))
+  (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
-      (literal))
-    (r
+    (value_word
       (literal))
     (comment))
   (line
     (g)
-    (x
+    (g)
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
+      (literal))
+    (value_word
       (literal))
     (comment))
   (line
-    (block_number)
     (g)
-    (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
     (comment))
   (line
     (block_number)
     (g)
-    (x
-      (literal))
     (g)
-    (p
-      (literal)))
-  (line
-    (block_number)
-    (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
-      (literal))
-    (r
+    (value_word
       (literal))
     (comment))
   (line
     (block_number)
-    (x
-      (literal)))
-  (line
-    (block_number)
-    (x
-      (literal)))
-  (line
-    (block_number)
-    (x
-      (literal)))
-  (line
-    (block_number)
-    (y
+    (g)
+    (value_word
       (literal))
-    (z
+    (g)
+    (value_word
       (literal)))
   (line
     (block_number)
-    (x
+    (g)
+    (value_word
+      (literal))
+    (value_word
+      (literal))
+    (value_word
+      (literal))
+    (value_word
+      (literal))
+    (comment))
+  (line
+    (block_number)
+    (value_word
       (literal)))
   (line
     (block_number)
-    (x
+    (value_word
       (literal)))
   (line
     (block_number)
-    (x
+    (value_word
+      (literal)))
+  (line
+    (block_number)
+    (value_word
+      (literal))
+    (value_word
+      (literal)))
+  (line
+    (block_number)
+    (value_word
+      (literal)))
+  (line
+    (block_number)
+    (value_word
+      (literal)))
+  (line
+    (block_number)
+    (value_word
       (literal)))
   (line
     (block_number)
@@ -1543,16 +1541,16 @@ N240 M2 (program end)
   (line
     (block_number)
     (g)
-    (x
+    (value_word
       (literal))
     (comment))
   (line
     (block_number)
-    (y
+    (value_word
       (literal)))
   (line
     (block_number)
-    (z
+    (value_word
       (literal)))
   (line
     (block_number)
@@ -1580,65 +1578,65 @@ G90 G98 G81 X4 Y5 Z-0.6 R1.8
     (g)
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (r
+    (value_word
       (literal)))
   (line
     (g)
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (r
+    (value_word
       (literal))
-    (l
+    (value_word
       (literal)))
   (line
     (g)
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (r
+    (value_word
       (literal)))
   (line
     (g)
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (r
+    (value_word
       (literal))
-    (l
+    (value_word
       (literal)))
   (line
     (g)
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (r
+    (value_word
       (literal))))
 
 ================================================================================
@@ -1659,7 +1657,7 @@ G0 X2.5 (rapid move 2.5 from current position along the X axis)
     (comment))
   (line
     (g)
-    (x
+    (value_word
       (literal))
     (comment))
   (line
@@ -1667,7 +1665,7 @@ G0 X2.5 (rapid move 2.5 from current position along the X axis)
     (comment))
   (line
     (g)
-    (x
+    (value_word
       (literal))
     (comment)))
 
@@ -1682,9 +1680,9 @@ G96 D2500 S250 (set CSS with a max rpm of 2500 and a surface speed of 250)
 (source_file
   (line
     (g)
-    (d
+    (value_word
       (literal))
-    (s
+    (value_word
       (literal))
     (comment)))
 
@@ -1700,25 +1698,25 @@ G90 G98 G81 X4 Y5 Z-0.6 R1.8 F10
 (source_file
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal)))
   (line
     (g)
     (g)
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
-    (z
+    (value_word
       (literal))
-    (r
+    (value_word
       (literal))
-    (f
+    (value_word
       (literal))))
 
 ================================================================================
@@ -1738,31 +1736,31 @@ M5 $2
 
 (source_file
   (line
-    (s
+    (value_word
       (literal))
-    (spindle
+    (value_word
       (literal)))
   (line
-    (s
+    (value_word
       (literal))
-    (spindle
+    (value_word
       (literal)))
   (line
-    (s
+    (value_word
       (literal))
-    (spindle
+    (value_word
       (literal)))
   (line
     (m)
-    (spindle
+    (value_word
       (literal)))
   (line
     (m)
-    (spindle
+    (value_word
       (literal)))
   (line
     (m)
-    (spindle
+    (value_word
       (literal))))
 
 ================================================================================
@@ -1776,11 +1774,11 @@ M66 P0 L3 Q5 (wait up to 5 seconds for digital input 0 to turn on)
 (source_file
   (line
     (m)
-    (p
+    (value_word
       (literal))
-    (l
+    (value_word
       (literal))
-    (q
+    (value_word
       (literal))
     (comment)))
 
@@ -1826,7 +1824,7 @@ m2
       (o_name)
       (body
         (line
-          (debug
+          (control_comment
             (named_global_parameter)
             (named_global_parameter)
             (named_global_parameter)
@@ -1844,15 +1842,15 @@ m2
           (g)
           (comment))
         (line
-          (f
+          (value_word
             (literal))
           (comment))
         (line
-          (s
+          (value_word
             (literal))
           (comment))
         (line
-          (debug))
+          (control_comment))
         (line
           (call
             (o_name))))
@@ -1867,15 +1865,15 @@ m2
     (g)
     (comment))
   (line
-    (f
+    (value_word
       (literal))
     (comment))
   (line
-    (s
+    (value_word
       (literal))
     (comment))
   (line
-    (debug))
+    (control_comment))
   (line
     (call
       (o_name)))
@@ -1889,7 +1887,7 @@ m2
     (m)
     (comment))
   (line
-    (debug))
+    (control_comment))
   (line
     (call
       (o_name)))
@@ -1937,7 +1935,7 @@ m2
       (o_name)
       (body
         (line
-          (debug
+          (control_comment
             (named_global_parameter)
             (named_global_parameter)
             (named_global_parameter)
@@ -1958,15 +1956,15 @@ m2
           (g)
           (comment))
         (line
-          (f
+          (value_word
             (literal))
           (comment))
         (line
-          (s
+          (value_word
             (literal))
           (comment))
         (line
-          (debug))
+          (control_comment))
         (line
           (call
             (o_name)))
@@ -1985,15 +1983,15 @@ m2
     (g)
     (comment))
   (line
-    (f
+    (value_word
       (literal))
     (comment))
   (line
-    (s
+    (value_word
       (literal))
     (comment))
   (line
-    (debug))
+    (control_comment))
   (line
     (call
       (o_name)))
@@ -2001,7 +1999,7 @@ m2
     (call
       (o_name)))
   (line
-    (debug))
+    (control_comment))
   (line
     (call
       (o_name)))
@@ -2041,8 +2039,8 @@ O<measure> endsub
           (comment))
         (line
           (assignment
-            (named_local_parameter)
-            (named_global_parameter))
+            left: (named_local_parameter)
+            right: (named_global_parameter))
           (comment))
         (line
           (comment))
@@ -2051,24 +2049,24 @@ O<measure> endsub
           (comment))
         (line
           (g)
-          (z
+          (value_word
             (literal))
-          (f
+          (value_word
             (literal))
           (comment))
         (line
           (g)
           (g)
-          (z
+          (value_word
             (literal))
           (comment))
         (line
           (assignment
-            (numbered_parameter)
-            (numbered_parameter))
+            left: (numbered_parameter)
+            right: (numbered_parameter))
           (comment))
         (line
-          (print
+          (control_comment
             (numbered_parameter)))
         (line
           (comment))
@@ -2099,9 +2097,9 @@ M100 P123.456 Q321.654
 (source_file
   (line
     (m)
-    (p
+    (value_word
       (literal))
-    (q
+    (value_word
       (literal))))
 
 ================================================================================
@@ -2139,7 +2137,6 @@ o100 endsub
             condition: (expression
               (binary_expr
                 left: (numbered_parameter)
-                operator: (gt)
                 right: (literal)))
             (body
               (line
@@ -2200,11 +2197,11 @@ o100 call [100] [2] [325]
         (line
           (g)
           (g)
-          (x
+          (value_word
             (literal))
-          (y
+          (value_word
             (literal))
-          (z
+          (value_word
             (literal))
           (comment)))
       (endsub
@@ -2228,7 +2225,6 @@ o100 call [100] [2] [325]
             condition: (expression
               (binary_expr
                 left: (numbered_parameter)
-                operator: (gt)
                 right: (literal)))
             (body
               (line
@@ -2241,7 +2237,7 @@ o100 call [100] [2] [325]
         (line
           (comment))
         (line
-          (debug
+          (control_comment
             (numbered_parameter))))
       (endsub
         (o_number))))
@@ -2257,7 +2253,6 @@ o100 call [100] [2] [325]
             condition: (expression
               (binary_expr
                 left: (numbered_parameter)
-                operator: (gt)
                 right: (literal)))
             (body
               (line
@@ -2270,10 +2265,10 @@ o100 call [100] [2] [325]
         (line
           (comment))
         (line
-          (debug
+          (control_comment
             (numbered_parameter)))
         (line
-          (debug
+          (control_comment
             (numbered_parameter))))
       (endsub
         (o_number))))
@@ -2309,18 +2304,18 @@ M2 (end program)
     (comment))
   (line
     (g)
-    (x
+    (value_word
       (literal))
-    (y
+    (value_word
       (literal))
     (comment))
   (line
     (assignment
-      (numbered_parameter)
-      (literal))
+      left: (numbered_parameter)
+      right: (literal))
     (comment))
   (line
-    (f
+    (value_word
       (literal))
     (comment))
   (line
@@ -2329,30 +2324,27 @@ M2 (end program)
       condition: (expression
         (binary_expr
           left: (numbered_parameter)
-          operator: (lt)
           right: (literal)))
       (body
         (line
           (g)
-          (x
+          (value_word
             (literal)))
         (line
           (g)
-          (y
+          (value_word
             (expression
               (binary_expr
                 left: (numbered_parameter)
-                operator: (div)
                 right: (literal))))
-          (x
+          (value_word
             (literal)))
         (line
           (assignment
-            (numbered_parameter)
-            (expression
+            left: (numbered_parameter)
+            right: (expression
               (binary_expr
                 left: (numbered_parameter)
-                operator: (add)
                 right: (literal))))
           (comment)))
       (endwhile
@@ -2384,15 +2376,15 @@ M2
 (source_file
   (line
     (assignment
-      (numbered_parameter)
-      (literal))
+      left: (numbered_parameter)
+      right: (literal))
     (comment))
   (line
     (do
       (o_number)
       (body
         (line
-          (debug
+          (control_comment
             (numbered_parameter)))
         (line
           (if
@@ -2400,16 +2392,15 @@ M2
             condition: (expression
               (binary_expr
                 left: (numbered_parameter)
-                operator: (eq)
                 right: (literal)))
             (body
               (line
                 (assignment
-                  (numbered_parameter)
-                  (literal))
+                  left: (numbered_parameter)
+                  right: (literal))
                 (comment))
               (line
-                (msg
+                (control_comment
                   (numbered_parameter)))
               (line
                 (continue
@@ -2421,11 +2412,10 @@ M2
           (comment))
         (line
           (assignment
-            (numbered_parameter)
-            (expression
+            left: (numbered_parameter)
+            right: (expression
               (binary_expr
                 left: (numbered_parameter)
-                operator: (add)
                 right: (literal))))
           (comment)))
       (do_while
@@ -2433,10 +2423,9 @@ M2
         (expression
           (binary_expr
             left: (numbered_parameter)
-            operator: (lt)
             right: (literal))))))
   (line
-    (msg))
+    (control_comment))
   (line
     (m)))
 
@@ -2460,11 +2449,10 @@ o101 endif
       condition: (expression
         (binary_expr
           left: (numbered_parameter)
-          operator: (eq)
           right: (literal)))
       (body
         (line
-          (s
+          (value_word
             (literal))))
       (endif
         (o_number)))))
@@ -2495,24 +2483,22 @@ o102 endif
       condition: (expression
         (binary_expr
           left: (numbered_parameter)
-          operator: (gt)
           right: (literal)))
       (body
         (line
-          (f
+          (value_word
             (literal))))
       (elseif
         (o_number)
         condition: (expression
           (binary_expr
             left: (numbered_parameter)
-            operator: (lt)
             right: (literal)))
         (body
           (line
             (comment))
           (line
-            (f
+            (value_word
               (literal)))
           (line
             (comment))))
@@ -2520,7 +2506,7 @@ o102 endif
         (o_number)
         (body
           (line
-            (f
+            (value_word
               (literal)))))
       (endif
         (o_number)))))
@@ -2551,11 +2537,10 @@ O102 endif
       condition: (expression
         (binary_expr
           left: (numbered_parameter)
-          operator: (gt)
           right: (literal)))
       (body
         (line
-          (f
+          (value_word
             (literal)))
         (line
           (comment)))
@@ -2564,11 +2549,10 @@ O102 endif
         condition: (expression
           (binary_expr
             left: (numbered_parameter)
-            operator: (lt)
             right: (literal)))
         (body
           (line
-            (f
+            (value_word
               (literal)))
           (line
             (comment))))
@@ -2576,7 +2560,7 @@ O102 endif
         (o_number)
         (body
           (line
-            (f
+            (value_word
               (literal)))))
       (endif
         (o_number)))))
@@ -2611,9 +2595,9 @@ G90 (Absolute mode)
           (comment))
         (line
           (g)
-          (x
+          (value_word
             (literal))
-          (y
+          (value_word
             (literal))
           (comment)))
       (endrepeat
@@ -2636,7 +2620,6 @@ o[#101+2] call
       (o_indirect
         (binary_expr
           left: (numbered_parameter)
-          operator: (add)
           right: (literal))))))
 
 ================================================================================
@@ -2693,7 +2676,6 @@ o123 endsub [3 * 4]
       (expression
         (binary_expr
           left: (numbered_parameter)
-          operator: (mul)
           right: (literal)))))
   (line
     (sub
@@ -2706,5 +2688,4 @@ o123 endsub [3 * 4]
         (expression
           (binary_expr
             left: (literal)
-            operator: (mul)
             right: (literal)))))))
